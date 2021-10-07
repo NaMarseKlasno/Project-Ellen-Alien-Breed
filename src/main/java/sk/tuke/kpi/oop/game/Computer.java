@@ -6,6 +6,7 @@ import sk.tuke.kpi.gamelib.framework.AbstractActor;
 class Computer extends AbstractActor
 {
     /*
+    TODO: потом удолю
     public int add () {
         return 0;
     }
