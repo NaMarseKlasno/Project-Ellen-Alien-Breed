@@ -1,23 +1,30 @@
 package sk.tuke.kpi.oop.game;
 
+import org.jetbrains.annotations.NotNull;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
+import sk.tuke.kpi.gamelib.graphics.Animation;
 
 
-class Computer extends AbstractActor
+public class Computer extends AbstractActor
 {
-    /*
-    TODO: потом удолю
-    public int add () {
-        return 0;
+    public Computer()
+    {
+        setAnimation(new Animation(
+            "sprites/computer.png",
+            80, 48, 0.2f,
+            Animation.PlayMode.LOOP_PINGPONG
+        ));
     }
-    public float add () {
-        return 0;
+
+    public int add(int x, int y) {
+        return x + y;
     }
-    public int sub () {
-        return 0;
+
+    public float add(float x, float y) {
+        return x + y;
     }
-    public float sub () {
-        return 0;
-    }*/
+
+
+
 
 }
