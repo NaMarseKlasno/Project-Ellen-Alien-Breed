@@ -7,7 +7,7 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 public class Hammer extends AbstractActor
 {
     private Animation hammer;
-    public int number_of_uses;
+    private int number_of_uses;
 
 
     public Hammer ()
@@ -22,8 +22,13 @@ public class Hammer extends AbstractActor
         --this.number_of_uses;
         if (this.number_of_uses == 0)
             this.getScene().removeActor(this);
+    }
 
-
+    public int get() {
+        return this.number_of_uses;
+    }
+    public void push(int num) {
+        this.number_of_uses = num;
     }
 
 }
