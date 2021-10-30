@@ -86,7 +86,7 @@ public class Reactor extends AbstractActor
 
     public void repairWith(Hammer molotok) {
         if (molotok == null || getDamage() <= 0 || getDamage() == 100) return;
-        if (molotok.number_of_uses < 1) return;
+        if (molotok.getRemainingUses() < 1) return;
 
         molotok.use();
         if ((this.damage-50)>=0) {
@@ -128,14 +128,17 @@ public class Reactor extends AbstractActor
 
     /// ***** FIRE
     public void extinguishWith(FireExtinguisher horny_fire) {
-        if (horny_fire == null || horny_fire.get() < 1 ||this.damage != 100) return;
-
+        if (horny_fire.getRemainingUses() == 0) {
+            return;
+        }
         horny_fire.use();
+        if (temperature > 4000) {
+            temperature = 4000;
+        }
+        setAnimation(new Animation("sprites/reactor_extinguished.png"));
 
-        this.temperature -= 4000;
-        this.running = false;
-        updateAnimation();
     }
+
 
 
 }

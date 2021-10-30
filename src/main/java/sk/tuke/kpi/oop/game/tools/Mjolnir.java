@@ -6,6 +6,6 @@ import sk.tuke.kpi.oop.game.tools.Hammer;
 public class Mjolnir extends Hammer {
 
     public Mjolnir() {
-        this.push(4);
+        this.remainingUses = 4;
     }
 }
