@@ -1,6 +1,9 @@
 package sk.tuke.kpi.oop.game;
 
-//import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Scene;
+import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
+
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
@@ -137,6 +140,15 @@ public class Reactor extends AbstractActor
         }
         setAnimation(new Animation("sprites/reactor_extinguished.png"));
 
+    }
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+        scene.scheduleAction(new PerpetualReactorHeating(1), this);
+
+        // v metode addedToScene triedy Reactor
+       // new PerpetualReactorHeating(1).scheduleFor(this);
     }
 
 

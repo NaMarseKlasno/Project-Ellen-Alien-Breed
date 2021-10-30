@@ -14,7 +14,7 @@ public class Light extends AbstractActor
 
     public Light()
     {
-        this.status = true;
+        this.status = false;
         this.status_power = false;
 
         this.light_on = new Animation("sprites/light_on.png");
