@@ -1,21 +1,20 @@
 package sk.tuke.kpi.oop.game;
 
-import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.actions.Invoke;
 
 import org.jetbrains.annotations.NotNull;
 import sk.tuke.kpi.gamelib.Scene;
 
-import java.util.Objects;
-
 
 public class DefectiveLight extends Light {
-    private Disposable dis;
     private boolean isOn;
 
-    private void Random()
-    {
+    public DefectiveLight() {
+        super();
+    }
+
+    private void Random() {
         this.isOn = false;
         int max = 20, min = 1, range = max - min + 1;
 
@@ -29,12 +28,7 @@ public class DefectiveLight extends Light {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-        dis = new Loop<>(new Invoke(this::Random)).scheduleOn(Objects.requireNonNull(this.getScene()));
+        new Loop<>(new Invoke<>(this::Random)).scheduleFor(this);
     }
-
-
-//    private void refreshLoop() {
-//        loop = new Loop<>(new Invoke<>(this::toggleRandom)).scheduleFor(this);
-//    }
 
 }
