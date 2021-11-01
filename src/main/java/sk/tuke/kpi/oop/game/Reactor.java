@@ -1,6 +1,7 @@
 package sk.tuke.kpi.oop.game;
 
 import org.jetbrains.annotations.NotNull;
+import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
 
@@ -8,6 +9,7 @@ import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
 import sk.tuke.kpi.oop.game.tools.Hammer;
+import sk.tuke.kpi.oop.game.tools.Usable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +62,7 @@ public class Reactor extends AbstractActor implements Switchable {
         if (this.temperature > 2000 && this.damage < 100) {
             this.damage = ((this.temperature - 2000) * 100) / 4000;
             if (this.damage>100) this.damage = 100;
-        }
+        } if (this.temperature > 6000) this.temperature = 6000;
         updateAnimation();
     }
     public void decreaseTemperature (int decrement) {
@@ -83,7 +85,7 @@ public class Reactor extends AbstractActor implements Switchable {
             if (getTemperature() > 4000 && getTemperature() < 6000) {
                 setAnimation(overheatedAnimation);
             }
-            if (this.damage == 100) {
+            if (this.damage == 100 && this.temperature == 6000) {
                 running = false;
                 setAnimation(destroyAnimation);
             }
@@ -93,11 +95,12 @@ public class Reactor extends AbstractActor implements Switchable {
         }
     }
 
-    public void repairWith(Hammer molotok) {
-        if (molotok == null || getDamage() <= 0 || getDamage() == 100) return;
-        if (molotok.getRemainingUses() < 1) return;
+    public boolean repair() {
+        if (this.damage == 100) return false;
+//        if (molotok == null || getDamage() <= 0 || getDamage() == 100) return;
+//        if (molotok.getRemainingUses() < 1) return;
 
-        molotok.use();
+       // molotok.useWith(this);
         if ((this.damage-50)>=0) {
             this.damage-=50;
             this.temperature = 4000 * (this.damage*0.01f) + 2000;
@@ -106,6 +109,8 @@ public class Reactor extends AbstractActor implements Switchable {
             this.temperature = 2000;
         }
         updateAnimation();
+
+        return true;
     }
 
     public void turnOn() {
@@ -139,16 +144,16 @@ public class Reactor extends AbstractActor implements Switchable {
 
 
     /// ***** FIRE
-    public void extinguishWith(FireExtinguisher horny_fire) {
-        if (horny_fire.getRemainingUses() == 0) {
-            return;
+    public boolean extinguish() {
+        if (this.damage < 100 && this.temperature != 6000) {
+            return false;
         }
-        horny_fire.use();
+        //horny_fire.useWith();
         if (temperature > 4000) {
             temperature = 4000;
         }
         setAnimation(new Animation("sprites/reactor_extinguished.png"));
-
+        return true;
     }
 
     @Override

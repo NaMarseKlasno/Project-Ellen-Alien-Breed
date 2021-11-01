@@ -4,5 +4,5 @@ import sk.tuke.kpi.gamelib.Actor;
 
 public interface Usable<A extends Actor> {
 
-    void use(A actor);
+    void useWith(A actor);
 }
