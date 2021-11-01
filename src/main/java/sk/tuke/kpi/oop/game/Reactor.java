@@ -9,9 +9,12 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
 import sk.tuke.kpi.oop.game.tools.Hammer;
 
+import java.util.HashSet;
+import java.util.Set;
 
-public class Reactor extends AbstractActor
-{
+
+public class Reactor extends AbstractActor implements Switchable {
+
     private float temperature;
     private float damage;
 
@@ -24,11 +27,14 @@ public class Reactor extends AbstractActor
 
     private boolean running;
 
+    private Set<EnergyConsumer> devices;
+
 
     public Reactor () {
         this.temperature = 0.0f;
         this.damage = 0.0f;
         running = true;
+        devices = new HashSet<>();
 
         this.normalAnimation = new Animation("sprites/reactor_on.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         this.offAnimation = new Animation("sprites/reactor.png", 80, 80, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
@@ -112,20 +118,23 @@ public class Reactor extends AbstractActor
         updateAnimation();
     }
 
-    public boolean isRunning() {
+//    public boolean isRunning() {
+//        return this.running;
+//    }
+    public boolean isOn() {
         return this.running;
     }
-    public boolean isOn() {
-        return this.isRunning();
+
+    public void addDevice(EnergyConsumer shtuchka) {
+        this.devices.add(shtuchka);
+//        if (this.running && this.damage < 100)
+//            Light.light_On_Off(true);
+        if (isOn() && this.damage<100) shtuchka.setPowered(true);
     }
 
-    public void addLight(Light Light) {
-        if (this.running && this.damage < 100)
-            Light.light_On_Off(true);
-    }
-
-    public void removeLight(Light Light) {
-        Light.light_On_Off(false);
+    public void removeDevice(EnergyConsumer shtuchka) {
+        shtuchka.setPowered(false);
+        this.devices.remove(shtuchka);
     }
 
 

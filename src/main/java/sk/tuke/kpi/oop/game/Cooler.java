@@ -9,18 +9,20 @@ import sk.tuke.kpi.gamelib.actions.Invoke;
 import sk.tuke.kpi.gamelib.framework.actions.Loop;
 
 
-public class Cooler extends AbstractActor {
+public class Cooler extends AbstractActor implements Switchable
+{
     private Animation cooler;
     //private Animation cooler_off;
 
     private boolean status;
 //    private boolean status_power;
     private Reactor REACTOR;
+    private boolean isOn;
 
 
-    public Cooler(Reactor REACTOR) {
+    public Cooler(Reactor R) {
         this.status = false;
-        this.REACTOR = REACTOR;
+        this.REACTOR = R;
 
         this.cooler = new Animation("sprites/fan.png", 32, 32, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
         //this.cooler_off= new Animation("sprites/fan.png",32, 32, 0);//Animation.PlayMode.LOOP);
@@ -28,21 +30,6 @@ public class Cooler extends AbstractActor {
         setAnimation(cooler);
     }
 
-    public void turnOn() {
-        if (this.REACTOR == null) return;
-        this.status = true;
-        this.cooler.play();
-    }
-
-    public void turnOff() {
-        if (this.REACTOR == null) return;
-        this.status = false;
-        this.cooler.pause();
-    }
-
-    public boolean ifOn() {
-        return this.status;
-    }
 
     private void coolReactor() {
         if (this.REACTOR == null) return;
@@ -53,5 +40,24 @@ public class Cooler extends AbstractActor {
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
         new Loop<>(new Invoke<>(this::coolReactor)).scheduleFor(this);
+    }
+
+    @Override
+    public void turnOn() {
+        if (this.REACTOR == null) return;
+        this.status = true;
+        this.cooler.play();
+    }
+
+    @Override
+    public void turnOff() {
+        if (this.REACTOR == null) return;
+        this.status = false;
+        this.cooler.pause();
+    }
+
+    @Override
+    public boolean isOn() {
+        return this.status;
     }
 }
