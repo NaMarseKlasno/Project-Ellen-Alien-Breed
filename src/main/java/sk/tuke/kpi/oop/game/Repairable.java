@@ -4,4 +4,5 @@ import sk.tuke.kpi.gamelib.Actor;
 
 public interface Repairable extends Actor {
     boolean repair();
+    boolean extinguish();
 }

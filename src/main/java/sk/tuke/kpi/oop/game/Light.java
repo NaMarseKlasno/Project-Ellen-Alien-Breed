@@ -11,8 +11,6 @@ public class Light extends AbstractActor implements Switchable, EnergyConsumer
 
     private boolean status;
     private boolean status_power;
-    private boolean isOn;
-
 
     public Light()
     {
@@ -42,21 +40,19 @@ public class Light extends AbstractActor implements Switchable, EnergyConsumer
 
     @Override
     public void turnOn() {
-        this.isOn = true;
-        this.status = !isOn();
+        this.status = false;
         toggle();
     }
 
     @Override
     public void turnOff() {
-        this.isOn = false;
-        this.status = !isOn();
+        this.status = true;
         toggle();
     }
 
     @Override
     public boolean isOn() {
-        return this.isOn;
+        return this.status;
     }
 
     @Override

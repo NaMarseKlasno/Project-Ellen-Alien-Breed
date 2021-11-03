@@ -20,7 +20,7 @@ public class Hammer extends BreakableTool<Reactor> {
 
     @Override
     public void useWith(Reactor REACTOR){
-        if (REACTOR == null || super.getRemainingUses() < 1) return;
+        if (REACTOR == null || super.getRemainingUses() < 1 || REACTOR.getDamage() == 0) return;
 
         super.useWith(REACTOR);
         REACTOR.repair();

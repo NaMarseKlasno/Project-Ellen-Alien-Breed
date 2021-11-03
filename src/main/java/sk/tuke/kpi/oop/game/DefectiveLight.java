@@ -21,13 +21,13 @@ public class DefectiveLight extends Light implements Repairable {
     }
 
     private void Random() {
-        this.isOn = false;
+        //this.isOn = false;
         int max = 20, min = 1, range = max - min + 1;
 
         int rand = (int)(Math.random() * range) + min;
         if (rand == 1) {
             toggle();
-            this.isOn = !this.isOn;
+            //this.isOn = !this.isOn;
         }
     }
 
@@ -46,7 +46,6 @@ public class DefectiveLight extends Light implements Repairable {
         this.isOn = true;
 
         new ActionSequence<> (
-            new Wait   <> (10),
             new Invoke <> (this::disposable_loop),
             new Invoke <> (this::toggle_status)
         ).scheduleFor(this);
@@ -60,5 +59,10 @@ public class DefectiveLight extends Light implements Repairable {
 
     private void toggle_status() {
         this.isOn = !this.isOn;
+    }
+
+    @Override
+    public boolean extinguish() {
+        return false;
     }
 }
