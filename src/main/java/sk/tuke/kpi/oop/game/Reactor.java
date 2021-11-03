@@ -114,11 +114,17 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
     public void turnOn() {
         this.running = true;
         updateAnimation();
+        for (EnergyConsumer shtuchka : devices) {
+            shtuchka.setPowered(true);
+        }
     }
 
     public void turnOff() {
         this.running = false;
         updateAnimation();
+        for (EnergyConsumer shtuchka : devices) {
+            shtuchka.setPowered(false);
+        }
     }
 
 //    public boolean isRunning() {
