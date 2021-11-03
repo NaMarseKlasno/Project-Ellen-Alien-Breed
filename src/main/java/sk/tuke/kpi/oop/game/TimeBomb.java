@@ -15,8 +15,8 @@ public class TimeBomb extends AbstractActor {
 
     private boolean status;
 
-    private float start_time;
-    private float sub_time_seconds;
+//    private float start_time;
+//    private float sub_time_seconds;
     private float TIME;
 
 
@@ -35,7 +35,10 @@ public class TimeBomb extends AbstractActor {
 
     public void activate()
     {
+        if (isActivated()) return;
+
         setAnimation(this.timeBomb_on);
+        this.status = true;
 
         new ActionSequence<>(
             new Wait<>(this.TIME),
@@ -48,7 +51,7 @@ public class TimeBomb extends AbstractActor {
         return this.status;
     }
 
-    private void remove() {
+    public void remove() {
         getScene().removeActor(this);
     }
 
