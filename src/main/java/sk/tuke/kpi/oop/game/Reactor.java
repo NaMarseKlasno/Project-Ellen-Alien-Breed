@@ -164,8 +164,4 @@ public class Reactor extends AbstractActor implements Switchable {
         // v metode addedToScene triedy Reactor
        // new PerpetualReactorHeating(1).scheduleFor(this);
     }
-
-
-
-
 }
