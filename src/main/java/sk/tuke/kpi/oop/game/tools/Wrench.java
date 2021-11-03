@@ -9,7 +9,7 @@ public class Wrench extends BreakableTool<DefectiveLight> {
     private Animation wrench;
 
     public Wrench() {
-        super(1);
+        super(2);
 
         this.wrench = new Animation("sprites/wrench.png");
         setAnimation(this.wrench);
