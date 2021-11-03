@@ -1,21 +1,21 @@
 package sk.tuke.kpi.oop.game;
 
 import org.jetbrains.annotations.NotNull;
-import sk.tuke.kpi.gamelib.Actor;
+//import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.oop.game.actions.PerpetualReactorHeating;
 
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
-import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
-import sk.tuke.kpi.oop.game.tools.Hammer;
-import sk.tuke.kpi.oop.game.tools.Usable;
+//import sk.tuke.kpi.oop.game.tools.FireExtinguisher;
+//import sk.tuke.kpi.oop.game.tools.Hammer;
+//import sk.tuke.kpi.oop.game.tools.Usable;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class Reactor extends AbstractActor implements Switchable {
+public class Reactor extends AbstractActor implements Switchable, Repairable {
 
     private float temperature;
     private float damage;
@@ -24,11 +24,9 @@ public class Reactor extends AbstractActor implements Switchable {
     private Animation destroyAnimation;
     private Animation overheatedAnimation;
     private Animation offAnimation;
-
     private Animation reactor_extinguished;
 
     private boolean running;
-
     private Set<EnergyConsumer> devices;
 
 
@@ -68,7 +66,7 @@ public class Reactor extends AbstractActor implements Switchable {
     public void decreaseTemperature (int decrement) {
         if (!this.running || this.damage >= 100 || decrement < 0) return;
 
-        if (damage >= 50) temperature -= Math.floor(decrement / 2);
+        if (damage >= 50) temperature -= Math.floor((float)decrement / 2);
         else temperature -= decrement;
 
         updateAnimation();
@@ -145,13 +143,11 @@ public class Reactor extends AbstractActor implements Switchable {
 
     /// ***** FIRE
     public boolean extinguish() {
-        if (this.damage < 100 && this.temperature != 6000) {
-            return false;
-        }
+        if (this.damage < 100 && this.temperature != 6000) return false;
+
         //horny_fire.useWith();
-        if (temperature > 4000) {
-            temperature = 4000;
-        }
+        if (temperature > 4000) temperature = 4000;
+
         setAnimation(new Animation("sprites/reactor_extinguished.png"));
         return true;
     }
