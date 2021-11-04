@@ -20,7 +20,7 @@ public class DefectiveLight extends Light implements Repairable {
         this.isOn = false;
     }
 
-    private void Random() {
+    private void random() {
         //this.isOn = false;
         int max = 20, min = 1, range = max - min + 1;
 
@@ -34,7 +34,7 @@ public class DefectiveLight extends Light implements Repairable {
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
-        disposable = new Loop<>(new Invoke<>(this::Random)).scheduleFor(this);
+        disposable = new Loop<>(new Invoke<>(this::random)).scheduleFor(this);
     }
 
     @Override
@@ -44,20 +44,22 @@ public class DefectiveLight extends Light implements Repairable {
 
         this.disposable.dispose();
 
-
-//        new ActionSequence<> (
-//            new Invoke <> (this::disposable_loop),
-//            new Invoke <> (this::toggle_status)
-//        ).scheduleFor(this);
+        new ActionSequence<> (
+            new Wait   <> (10f),
+            new Invoke <> (this::disposableloop),
+            new Invoke <> (this::togglestatus)
+        ).scheduleFor(this);
 
         return this.isOn = true;
     }
 
-    private void disposable_loop() {
-        disposable = new Loop<>(new Invoke<>(this::Random)).scheduleFor(this);
+    private void disposableloop() {
+        disposable = new Loop<>(
+            new Invoke<>(this::random)
+        ).scheduleFor(this);
     }
 
-    private void toggle_status() {
+    private void togglestatus() {
         this.isOn = !this.isOn;
     }
 

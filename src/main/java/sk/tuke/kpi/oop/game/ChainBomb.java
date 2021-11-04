@@ -50,7 +50,8 @@ public class ChainBomb extends TimeBomb {
     }
 
     @Override
-    public void activate() {
+    public void activate()
+    {
         if (isActivated()) return;
 
         setAnimation(timeBomb_on);

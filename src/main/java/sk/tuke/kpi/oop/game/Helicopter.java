@@ -9,16 +9,16 @@ import sk.tuke.kpi.gamelib.framework.Player;
 
 public class Helicopter extends AbstractActor {
 
-    private Animation helicopter;
-    private Player PLAYER;
+    //private Animation helicopter;
+    //private Player PLAYER;
     private int heli_x, heli_y;
     private int player_x, player_y;
 
 
     public Helicopter()
     {
-        this.helicopter = new Animation("sprites/heli.png", 64, 64, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
-        setAnimation(this.helicopter);
+//        this.helicopter = new Animation("sprites/heli.png", 64, 64, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
+        setAnimation(new Animation("sprites/heli.png", 64, 64, 0.2f, Animation.PlayMode.LOOP_PINGPONG));
 
         this.heli_x = 0;
         this.heli_y = 0;
@@ -27,9 +27,9 @@ public class Helicopter extends AbstractActor {
     }
 
 
-    private void search_player()
+    private void searchplayer()
     {
-        PLAYER = getScene().getLastActorByType(Player.class);
+        Player PLAYER = getScene().getLastActorByType(Player.class);
         heli_x = getPosX();
         heli_y = getPosY();
         player_x = PLAYER.getPosX();
@@ -50,6 +50,6 @@ public class Helicopter extends AbstractActor {
     }
 
     public void searchAndDestroy() {
-        new Loop<>(new Invoke<>(this::search_player)).scheduleFor(this);
+        new Loop<>(new Invoke<>(this::searchplayer)).scheduleFor(this);
     }
 }

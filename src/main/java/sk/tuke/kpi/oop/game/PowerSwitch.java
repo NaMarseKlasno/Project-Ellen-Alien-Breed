@@ -6,15 +6,15 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 
 public class PowerSwitch extends AbstractActor {
 
-    private Animation powerSwitch;
+    //private Animation powerSwitch;
     private Switchable SWITCH;
 
 
     public PowerSwitch(Switchable switchable) {
         this.SWITCH = switchable;
 
-        this.powerSwitch = new Animation("sprites/switch.png");
-        setAnimation(powerSwitch);
+        //this.powerSwitch = new Animation("sprites/switch.png");
+        setAnimation(new Animation("sprites/switch.png"));
     }
 
     public void toggle(Reactor reactor) {

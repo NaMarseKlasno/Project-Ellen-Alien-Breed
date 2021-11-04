@@ -11,23 +11,20 @@ import sk.tuke.kpi.gamelib.framework.actions.Loop;
 
 public class Cooler extends AbstractActor implements Switchable
 {
-    private Animation cooler;
+    private Animation cooler_anim;
     //private Animation cooler_off;
-
     private boolean status;
 //    private boolean status_power;
     private Reactor REACTOR;
-    private boolean isOn;
-
 
     public Cooler(Reactor R) {
         this.status = false;
         this.REACTOR = R;
 
-        this.cooler = new Animation("sprites/fan.png", 32, 32, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
+        this.cooler_anim = new Animation("sprites/fan.png", 32, 32, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
         //this.cooler_off= new Animation("sprites/fan.png",32, 32, 0);//Animation.PlayMode.LOOP);
-        this.cooler.pause();
-        setAnimation(cooler);
+        this.cooler_anim.pause();
+        setAnimation(cooler_anim);
     }
 
 
@@ -46,14 +43,14 @@ public class Cooler extends AbstractActor implements Switchable
     public void turnOn() {
         if (this.REACTOR == null) return;
         this.status = true;
-        this.cooler.play();
+        this.cooler_anim.play();
     }
 
     @Override
     public void turnOff() {
         if (this.REACTOR == null) return;
         this.status = false;
-        this.cooler.pause();
+        this.cooler_anim.pause();
     }
 
     @Override

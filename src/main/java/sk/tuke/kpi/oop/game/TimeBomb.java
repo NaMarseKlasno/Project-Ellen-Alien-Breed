@@ -25,11 +25,10 @@ public class TimeBomb extends AbstractActor {
         this.status = false;
         this.TIME = TIME;
 
-        this.timeBomb_off = new Animation("sprites/bomb.png");
         this.timeBomb_on = new Animation("sprites/bomb_activated.png", 16, 16, 0.2f);
         this.timeBomb_exploded = new Animation("sprites/small_explosion.png", 16, 16, 0.3f);
 
-        setAnimation(this.timeBomb_off);
+        setAnimation(new Animation("sprites/bomb.png"));
     }
 
 
@@ -43,6 +42,7 @@ public class TimeBomb extends AbstractActor {
         new ActionSequence<>(
             new Wait<>(this.TIME),
             new Invoke<>(this::explode),
+            new Wait<>(0.35f),
             new Invoke<>(this::remove)
         ).scheduleFor(this);
     }
