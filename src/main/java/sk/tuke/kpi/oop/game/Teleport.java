@@ -17,10 +17,8 @@ public class Teleport extends AbstractActor
 
     private Teleport destination;
     private Player player;
-    Rectangle2D player_area;
-    Rectangle2D teleport_area;
-
-    Rectangle2D Area;
+    private Rectangle2D player_area;
+    private Rectangle2D teleport_area;
 
     private boolean is_teleported;
 
@@ -111,18 +109,6 @@ public class Teleport extends AbstractActor
 //                return;
 //            }
     }
-
-
-    private boolean canTeleport(Player player)
-    {
-        if (this.is_teleported){
-            this.is_teleported = ((player.getPosX()+16>=this.getPosX() && player.getPosX()+16<=this.getPosX()+48)
-                && (player.getPosY()+16>=this.getPosY()&&player.getPosY()+16<=this.getPosY()+48));
-            return false;
-        }
-        return true;
-    }
-
 }
 
 
