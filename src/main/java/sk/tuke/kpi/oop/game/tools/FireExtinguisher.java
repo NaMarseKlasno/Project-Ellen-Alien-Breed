@@ -6,18 +6,18 @@ import sk.tuke.kpi.oop.game.Reactor;
 
 public class FireExtinguisher extends BreakableTool<Reactor> {
 
-    private Animation extinguisher;
+    //private Animation extinguisher;
 
     public FireExtinguisher() {
         super(1);
 
-        this.extinguisher = new Animation("sprites/extinguisher.png");
-        setAnimation(this.extinguisher);
+        //this.extinguisher = new Animation("sprites/extinguisher.png");
+        setAnimation(new Animation("sprites/extinguisher.png"));
     }
 
     @Override
     public void useWith(Reactor REACTOR) {
-        if (REACTOR == null || super.getRemainingUses() < 1) return;
+        if (REACTOR == null || super.getRemainingUses() < 1 || REACTOR.getDamage() == 100) return;
 
         super.useWith(REACTOR);
         REACTOR.extinguish();

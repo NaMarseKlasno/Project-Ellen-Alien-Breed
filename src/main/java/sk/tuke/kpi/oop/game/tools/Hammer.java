@@ -6,13 +6,13 @@ import sk.tuke.kpi.oop.game.Reactor;
 
 public class Hammer extends BreakableTool<Reactor> {
 
-    private Animation hammer;
+    //private Animation hammer;
 
     public Hammer(int i) {
         super(i);
 
-        this.hammer = new Animation("sprites/hammer.png");
-        setAnimation(this.hammer);
+        //this.hammer = new Animation("sprites/hammer.png");
+        setAnimation(new Animation("sprites/hammer.png"));
     }
     public Hammer() {
         this(1);
