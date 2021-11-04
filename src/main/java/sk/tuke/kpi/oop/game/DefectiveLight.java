@@ -43,14 +43,14 @@ public class DefectiveLight extends Light implements Repairable {
         if (!this.isOn) return false;
 
         this.disposable.dispose();
-        this.isOn = true;
 
-        new ActionSequence<> (
-            new Invoke <> (this::disposable_loop),
-            new Invoke <> (this::toggle_status)
-        ).scheduleFor(this);
 
-        return true;
+//        new ActionSequence<> (
+//            new Invoke <> (this::disposable_loop),
+//            new Invoke <> (this::toggle_status)
+//        ).scheduleFor(this);
+
+        return this.isOn = true;
     }
 
     private void disposable_loop() {
