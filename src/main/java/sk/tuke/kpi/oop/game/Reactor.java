@@ -54,7 +54,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
     }
 
     public void increaseTemperature (int increment) {
-        if (increment < 1 || !this.running) return;
+        if (increment < 1) return;
 
         this.temperature += increment;
         if (this.temperature > 2000) { //&& this.damage < 100) {
@@ -77,27 +77,47 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
             super.setAnimation(offAnimation);
         }
         //if (this.running) {
-        check_temperature();
+        checktemperature();
         //}
         if (this.temperature == 2000 && this.damage == 100) {
             setAnimation(this.reactor_extinguished);
         }
     }
 
-    private void check_temperature()
+    private void checktemperature()
     {
-        if (getTemperature() <= 4000 && this.running) {
-            setAnimation(normalAnimation);
-        }
-        else if (getTemperature() > 4000 && getTemperature() < 6000 && this.running) {
-            setAnimation(overheatedAnimation);
-        }
-        else if (this.damage == 100 && this.temperature >= 6000 && this.running) {
-            running = false;
-            setAnimation(destroyAnimation);
-            for (EnergyConsumer shtuchka : devices) {
-                shtuchka.setPowered(false);
-            }
+        check1();
+//        if (getTemperature() <= 4000 && this.running) {
+//            setAnimation(normalAnimation);
+//        }
+        check2();
+//        else if (getTemperature() > 4000 && getTemperature() < 6000 && this.running) {
+//            setAnimation(overheatedAnimation);
+//        }
+        check3();
+//        else if (this.damage == 100 && this.temperature >= 6000 && this.running) {
+//            running = false;
+//            setAnimation(destroyAnimation);
+//            for (EnergyConsumer shtuchka : devices) {
+//                shtuchka.setPowered(false);
+//            }
+//        }
+    }
+
+    private void check1() {
+        if (getTemperature() > 4000 || !this.running) return;
+        setAnimation(normalAnimation);
+    }
+    private void check2() {
+        if (getTemperature() <= 4000 || getTemperature() >= 6000 || this.running) return;
+        setAnimation(overheatedAnimation);
+    }
+    private void check3(){
+        if (this.damage != 100 || this.temperature < 6000 || !this.running) return;
+        this.running = false;
+        setAnimation(destroyAnimation);
+        for (EnergyConsumer shtuchka : devices) {
+            shtuchka.setPowered(false);
         }
     }
 
