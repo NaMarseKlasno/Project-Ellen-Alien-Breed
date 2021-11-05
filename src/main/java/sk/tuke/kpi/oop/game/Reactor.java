@@ -17,8 +17,8 @@ import java.util.Set;
 
 public class Reactor extends AbstractActor implements Switchable, Repairable {
 
-    private float temperature;
-    private float damage;
+    private int temperature;
+    private int damage;
 
     private Animation normalAnimation;
     private Animation destroyAnimation;
@@ -31,8 +31,8 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
 
 
     public Reactor () {
-        this.temperature = 0.0f;
-        this.damage = 0.0f;
+        this.temperature = 0;
+        this.damage = 0;
         running = false;
         devices = new HashSet<>();
 
@@ -47,17 +47,17 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
 
 
     public int getTemperature () {
-        return (int)this.temperature;
+        return this.temperature;
     }
     public int getDamage () {
-        return (int)this.damage;
+        return this.damage;
     }
 
     public void increaseTemperature (int increment) {
         if (increment < 1 || !this.running) return;
 
         this.temperature += increment;
-        if (this.temperature > 2000 && this.damage < 100) {
+        if (this.temperature > 2000) { //&& this.damage < 100) {
             this.damage = ((this.temperature - 2000) * 100) / 4000;
             if (this.damage>100) this.damage = 100;
         } //if (this.temperature > 6000) this.temperature = 6000;
@@ -77,6 +77,15 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
             super.setAnimation(offAnimation);
         }
         //if (this.running) {
+        check_temperature();
+        //}
+        if (this.temperature == 2000 && this.damage == 100) {
+            setAnimation(this.reactor_extinguished);
+        }
+    }
+
+    private void check_temperature()
+    {
         if (getTemperature() <= 4000 && this.running) {
             setAnimation(normalAnimation);
         }
@@ -90,10 +99,6 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
                 shtuchka.setPowered(false);
             }
         }
-        //}
-        else if (this.temperature == 2000 && this.damage == 100) {
-            setAnimation(this.reactor_extinguished);
-        }
     }
 
     public boolean repair() {
@@ -104,10 +109,10 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
        // molotok.useWith(this);
         if ((this.damage-50f) >= 0) {
             this.damage-=50f;
-            this.temperature = 4000f * (this.damage*0.01f) + 2000f;
+            this.temperature = (int)(4000 * (this.damage*0.01) + 2000);
         } else if (this.temperature != 0.0f){
             this.damage = 0;
-            this.temperature = 2000f;
+            this.temperature = 2000;
         }
         updateAnimation();
 

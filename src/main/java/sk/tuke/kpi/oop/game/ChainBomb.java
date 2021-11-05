@@ -9,7 +9,7 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-import java.util.Set;
+//import java.util.Set;
 
 public class ChainBomb extends TimeBomb {
 
