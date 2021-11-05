@@ -34,9 +34,9 @@ public class Light extends AbstractActor implements Switchable, EnergyConsumer
         }
     }
 
-    public void light_On_Off(boolean bool) {
-        this.status_power = bool;
-    }
+//    public void light_On_Off(boolean bool) {
+//        this.status_power = bool;
+//    }
 
     @Override
     public void turnOn() {

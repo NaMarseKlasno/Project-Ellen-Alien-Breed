@@ -42,7 +42,7 @@ public class DefectiveLight extends Light implements Repairable {
     @Override
     public boolean repair()
     {
-        if (!this.isOn) return false;
+        if (!this.isOn || this.isPochynena()) return false;
 
         this.disposable.dispose();
 
