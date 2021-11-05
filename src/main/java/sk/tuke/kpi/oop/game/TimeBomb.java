@@ -9,7 +9,7 @@ import sk.tuke.kpi.gamelib.actions.ActionSequence;
 
 public class TimeBomb extends AbstractActor {
 
-    private Animation timeBomb_off;
+//    private Animation timeBomb_off;
     private Animation timeBomb_on;
     private Animation timeBomb_exploded;
 
@@ -42,7 +42,7 @@ public class TimeBomb extends AbstractActor {
         new ActionSequence<>(
             new Wait<>(this.TIME),
             new Invoke<>(this::explode),
-            new Wait<>(0.35f),
+            new Wait<>(0.45f),
             new Invoke<>(this::remove)
         ).scheduleFor(this);
     }

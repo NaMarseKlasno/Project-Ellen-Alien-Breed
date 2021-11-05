@@ -14,10 +14,12 @@ public class DefectiveLight extends Light implements Repairable {
 
     private boolean isOn;
     private Disposable disposable;
+    private boolean pochynena;
 
     public DefectiveLight() {
         super();
         this.isOn = false;
+        this.pochynena = false;
     }
 
     private void random() {
@@ -50,6 +52,7 @@ public class DefectiveLight extends Light implements Repairable {
             new Invoke <> (this::togglestatus)
         ).scheduleFor(this);
 
+        this.pochynena = true;
         return this.isOn = true;
     }
 
@@ -57,6 +60,10 @@ public class DefectiveLight extends Light implements Repairable {
         disposable = new Loop<>(
             new Invoke<>(this::random)
         ).scheduleFor(this);
+    }
+
+    public boolean isPochynena() {
+        return pochynena;
     }
 
     private void togglestatus() {

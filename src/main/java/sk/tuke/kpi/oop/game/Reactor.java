@@ -149,7 +149,6 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         this.devices.remove(shtuchka);
     }
 
-
     /// ***** FIRE
     public boolean extinguish() {
         if (this.damage < 100 && this.temperature != 6000) return false;
