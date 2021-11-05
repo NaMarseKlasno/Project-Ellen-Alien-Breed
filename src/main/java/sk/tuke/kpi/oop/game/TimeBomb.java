@@ -42,7 +42,7 @@ public class TimeBomb extends AbstractActor {
         new ActionSequence<>(
             new Wait<>(this.TIME),
             new Invoke<>(this::explode),
-            new Wait<>(0.45f),
+            new Wait<>(0.55f),
             new Invoke<>(this::remove)
         ).scheduleFor(this);
     }

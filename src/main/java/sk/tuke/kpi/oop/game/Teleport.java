@@ -23,12 +23,13 @@ public class Teleport extends AbstractActor
     private boolean is_teleported;
 
 
-    public Teleport()
+    public Teleport(Teleport tpshka)
     {
         this.teleport = new Animation("sprites/lift.png");
         setAnimation(this.teleport);
         is_teleported = false;
         destination = null;
+        if (tpshka!=null) destination = tpshka;
     }
 
     public void setDestination(Teleport D) {
