@@ -83,7 +83,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         else if (getTemperature() > 4000 && getTemperature() < 6000 && this.running) {
             setAnimation(overheatedAnimation);
         }
-        else if (this.damage == 100 && this.temperature == 6000 && this.running) {
+        else if (this.damage == 100 && this.temperature >= 6000 && this.running) {
             running = false;
             setAnimation(destroyAnimation);
             for (EnergyConsumer shtuchka : devices) {
@@ -97,7 +97,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
     }
 
     public boolean repair() {
-        if (this.damage == 100) return false;
+        if (this.getDamage() == 0) return false;
 //        if (molotok == null || getDamage() <= 0 || getDamage() == 100) return;
 //        if (molotok.getRemainingUses() < 1) return;
 
