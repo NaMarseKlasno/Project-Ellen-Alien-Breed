@@ -2,27 +2,23 @@ package sk.tuke.kpi.oop.game.tools;
 
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.DefectiveLight;
-//import sk.tuke.kpi.oop.game.Repairable;
 
-public class Wrench extends BreakableTool<DefectiveLight> {
+public class Wrench extends BreakableTool<DefectiveLight>{
 
-    //private Animation wrench;
+    //private int health = 2;
 
-    public Wrench() {
+
+    public Wrench(){
         super(2);
-
-        //this.wrench = new Animation("sprites/wrench.png");
-        setAnimation(new Animation("sprites/wrench.png"));
+        Animation wrenchAnimation = new Animation("sprites/wrench.png");
+        //setRemainingUses(health);
+        setAnimation(wrenchAnimation);
     }
-//    public Hammer() {
-//        this(1);
-//    }
-
     @Override
-    public void useWith(DefectiveLight LIGHT){
-        if (LIGHT == null || super.getRemainingUses() < 1 || LIGHT.isPochynena()) return;
-        // repairable!=null && repairable.repair()
-        super.useWith(LIGHT);
-        LIGHT.repair();
+    public void useWith(DefectiveLight actor) {
+        if(actor != null && this.getRemainingUses() > 0 && !actor.isX() && actor.isPowered()) {
+            actor.repair();
+            super.useWith(actor);
+        }
     }
 }
