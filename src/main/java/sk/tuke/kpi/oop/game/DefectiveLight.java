@@ -14,13 +14,11 @@ public class DefectiveLight extends Light implements Repairable {
 
     private boolean isOn;
     private Disposable disposable;
-    private boolean pochynena;
     private boolean wait10Sec;
 
     public DefectiveLight() {
         super();
         this.isOn = false;
-        this.pochynena = false;
         this.wait10Sec = false;
     }
 
@@ -45,7 +43,7 @@ public class DefectiveLight extends Light implements Repairable {
     @Override
     public boolean repair()
     {
-        if (!this.isOn || this.isPochynena()) return false;
+        if (!this.isOn) return false;
 
         this.disposable.dispose();
         this.wait10Sec = true;
@@ -57,7 +55,6 @@ public class DefectiveLight extends Light implements Repairable {
         ).scheduleFor(this);
 
         this.wait10Sec = false;
-        this.pochynena = true;
         return this.isOn = true;
     }
 
@@ -68,7 +65,7 @@ public class DefectiveLight extends Light implements Repairable {
     }
 
     public boolean isPochynena() {
-        return pochynena;
+        return wait10Sec;
     }
 
     private void togglestatus() {
