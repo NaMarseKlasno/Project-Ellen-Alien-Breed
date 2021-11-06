@@ -12,7 +12,7 @@ import sk.tuke.kpi.gamelib.Scene;
 
 public class DefectiveLight extends Light implements Repairable {
 
-    private boolean isOn;
+    //private boolean isOn;
     private Disposable disposable;
     private boolean repaired;
 
