@@ -15,7 +15,7 @@ public class ChainBomb extends TimeBomb {
 
     //private Animation timeBomb_on;
 //    private List<Actor> ARR;
-    private float TIME;
+    //private float TIME;
 
     public ChainBomb(Float TIME)
     {
