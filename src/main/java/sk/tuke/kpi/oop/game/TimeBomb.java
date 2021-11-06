@@ -59,6 +59,9 @@ public class TimeBomb extends AbstractActor {
         setAnimation(this.timeBomb_exploded);
         this.status = true;
     }
+    public void activateBomb() {
+        setAnimation(this.timeBomb_on);
+    }
 
     public float getTIME () {
         return this.TIME;
