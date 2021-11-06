@@ -18,9 +18,9 @@ import java.util.Set;
 
 public class ChainBomb extends TimeBomb {
 
-    //private Animation timeBomb_on;
-//    private List<Actor> ARR;
-    //private float TIME;
+    // private Animation timeBomb_on;
+    // private List<Actor> ARR;
+    // private float TIME;
     private Set<ChainBomb> ARR;
 
 
