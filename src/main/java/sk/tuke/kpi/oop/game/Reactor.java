@@ -53,39 +53,39 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         return this.damage;
     }
 
-    public void increaseTemperature(int increment) {
-        if (increment < 1 || !this.isOn() || this.damage >= 100) return;
-        if (this.damage < 33) this.temperature += increment;
+    public void increaseTemperature(int increment)
+    {
+        if (!this.running || increment < 0 || this.temperature >= 6000) return;
 
-        else if (this.damage < 67) this.temperature += Math.ceil((float)(increment * 1.5));
+        if (!checktemp1(increment)) temperature += 2 * increment;
 
-        else this.temperature += increment * 2;
-
-
-        if (this.temperature > 2000 && this.damage < 100) {
-            int damage = (int)Math.floor((float)((this.getTemperature() - 2000) / 40));
-            if (this.damage < damage) this.damage = damage;
+        if (temperature < 6000 && temperature > 2000)
+            damage = (int)Math.floor((temperature * 0.025) - 50);
+        else if (temperature >= 6000) {
+            damage = 100;
+            this.running = false;
         }
+        updateAnimation();
+    }
+    private boolean checktemp1(int increment) {
+        if (damage < 33) {
+            temperature += increment;
+            return true;
+        }
+        else if (damage <= 66) {
+            temperature += (int)Math.ceil(1.5 * increment);
+            return true;
+        } return false;
+    }
 
-        if (this.damage == 100) this.turnOff();
+    public void decreaseTemperature (int decrement)
+    {
+        if (!this.running || this.temperature < 0 || decrement < 0 || this.damage == 100) return;
+
+        if (this.damage > 49) this.temperature -= (int)Math.ceil(decrement * 0.5);
+        else this.temperature -= decrement;
 
         this.updateAnimation();
-//        if (increment < 1 && !isOn()) return;
-//
-//        this.temperature += increment;
-//        if (this.temperature > 2000 && this.damage < 100) {
-//            this.damage = ((this.temperature - 2000) * 100) / 4000;
-//            if (this.damage>100) this.damage = 100;
-//        } //if (this.temperature > 6000) this.temperature = 6000;
-//        updateAnimation();
-    }
-    public void decreaseTemperature (int decrement) {
-        if (!this.running || this.damage >= 100 || decrement < 0) return;
-
-        if (damage >= 50) temperature -= Math.floor((float)decrement / 2);
-        else temperature -= decrement;
-
-        updateAnimation();
     }
 
     public void updateAnimation() {
@@ -129,7 +129,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         setAnimation(overheatedAnimation);
     }
     private void check3() {
-        if (this.damage != 100 || this.temperature < 6000 || !this.running) return;
+        if (this.damage != 100 || this.temperature < 6000) return;
         this.running = false;
         setAnimation(destroyAnimation);
         for (EnergyConsumer shtuchka : devices) {
