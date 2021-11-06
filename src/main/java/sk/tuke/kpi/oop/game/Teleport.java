@@ -16,10 +16,9 @@ public class Teleport extends AbstractActor
     private Animation teleport;
 
     private Teleport destination;
-    private Player player;
-    private Rectangle2D player_area;
-    private Rectangle2D tp_area;
-    private Rectangle2D tp_destination_area;
+//    private Player player;
+//    private Rectangle2D player_area;
+//    private Rectangle2D tp_area;
 
     private boolean is_teleported;
 
@@ -34,13 +33,16 @@ public class Teleport extends AbstractActor
     }
 
     public void setDestination(Teleport D) {
-        if (D != this && D != null)
+        if (D != this)
             this.destination = D;
     }
-
     public Teleport getDestination() {
         return destination;
     }
+
+
+
+
 
     @Override
     public void addedToScene(@NotNull Scene scene) {
@@ -50,36 +52,81 @@ public class Teleport extends AbstractActor
         ).scheduleFor(this);
     }
 
+
+
+
+
     public void teleport()
     {
         if (destination == null) return;
 
-        this.player = (Player)getScene().getFirstActorByName("Player");
-        this.teleportPlayer(player);
+        Player player = this.getScene().getLastActorByType(Player.class);
+        //falseTeleport(player);
+        teleportPlayer(player);
+        falseTeleport(player);
+    }
+    public void falseTeleport(Player player) {
+        if (is_teleported &&  !this.intersects(player)) {
+            this.is_teleported = false;
+            //this.is_teleported = false;
+        }
     }
 
     public void teleportPlayer(Player player)
     {
         if (destination == null || player == null) return;
 
-//        player_area = new Rectangle2D.Float(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
-//        tp_area = new Rectangle2D.Float(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
-//
-        if (!is_teleported && this.intersects(this.player)) {
+        Rectangle2D player_area = new Rectangle2D.Float(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
+        Rectangle2D tp_area = new Rectangle2D.Float(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
 
-
+        if (!this.is_teleported && (tp_area.intersects(player_area.getCenterX(), player_area.getCenterY(), player_area.getWidth()/2, player_area.getHeight()/2)))
+        {
+            //this.is_teleported = true;
+            this.is_teleported = true;
             player.setPosition(destination.getPosX(), destination.getPosY());
+            this.destination.is_teleported = true;
         }
+//        if (!is_teleported && this.intersects(this.player)) {
+//
+//
+//            player.setPosition(destination.getPosX(), destination.getPosY());
+//        }
 //        tp_destination_area = new Rectangle2D.Float(this.destination.getPosX(), this.destination.getPosY(), this.destination.getWidth(), this.destination.getHeight());
 
 //        player.setPosition((int)tp_destination_area.getCenterX()-8, (int)tp_destination_area.getCenterY()-8);
-        else {
-            if (this.intersects(this.player)) this.is_teleported = true;
-            else this.is_teleported = false;
-        }
-        System.out.println(this.is_teleported);
+//        else {
+//            if (player.getPosX() < this.getPosX()-24 &&
+//                player.getPosX() > this.getPosX()+24 &&
+//                player.getPosY() < this.getPosY()-24 &&
+//                player.getPosY() > this.getPosY()+24) {
+//                this.is_teleported = true;
+//            }
+//            else this.is_teleported = true;
+//        }
+        //System.out.println(this.is_teleported);
 
     }
 }
 
 
+
+
+
+//    public void teleportPlayer(Player player)
+//    {
+//        if (destination == null || player == null) return;
+//
+//        player_area = new Rectangle2D.Float(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
+//        tp_area = new Rectangle2D.Float(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
+//
+//        if (player.getPosX() > this.getPosX()-24 &&
+//            player.getPosX() < this.getPosX()+24 &&
+//            player.getPosY() > this.getPosY()-24 &&
+//            player.getPosY() < this.getPosY()+24 &&
+//            !this.is_teleported)
+//        {
+//            //this.is_teleported = true;
+//            this.is_teleported = true;
+//            player.setPosition(destination.getPosX(), destination.getPosY());
+//            this.destination.is_teleported = true;
+//        }

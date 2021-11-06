@@ -19,6 +19,21 @@ public class Gameplay extends Scenario {
         scene.addActor(reactor2, 146, 253);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
         reactor2.turnOn();
 
+        Teleport T1 = new Teleport(null);
+        scene.addActor(T1, 40, 50);
+
+        Teleport T2 = new Teleport(null);
+        scene.addActor(T2, 40, 130);
+
+        Teleport T3 = new Teleport(null);
+        scene.addActor(T3, 40, 330);
+
+
+        T1.setDestination(T3);
+        T2.setDestination(T3);
+        //T3.getDestination(null);
+
+
 //        Cooler cooler = new Cooler(reactor);
 //        new Wait<>(5).scheduleFor(cooler);
 //        new Invoke<>(cooler::turnOn).scheduleFor(cooler);
