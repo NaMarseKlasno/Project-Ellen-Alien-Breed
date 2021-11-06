@@ -43,7 +43,7 @@ public class DefectiveLight extends Light implements Repairable {
     @Override
     public boolean repair()
     {
-        if (!this.isOn) return false;
+        if (!this.isOn || this.wait10Sec) return false;
 
         this.disposable.dispose();
         this.wait10Sec = true;

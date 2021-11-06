@@ -54,10 +54,10 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
     }
 
     public void increaseTemperature (int increment) {
-        if (increment < 1) return;
+        if (increment < 1 && !isOn()) return;
 
         this.temperature += increment;
-        if (this.temperature > 2000) { //&& this.damage < 100) {
+        if (this.temperature > 2000 && this.damage < 100) {
             this.damage = ((this.temperature - 2000) * 100) / 4000;
             if (this.damage>100) this.damage = 100;
         } //if (this.temperature > 6000) this.temperature = 6000;
@@ -109,7 +109,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         setAnimation(normalAnimation);
     }
     private void check2() {
-        if (getTemperature() <= 4000 || getTemperature() >= 6000 || this.running) return;
+        if (getTemperature() <= 4000 || getTemperature() >= 6000 || !this.running) return;
         setAnimation(overheatedAnimation);
     }
     private void check3(){
@@ -175,7 +175,8 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
     }
 
     /// ***** FIRE
-    public boolean extinguish() {
+    public boolean extinguish()
+    {
         if (this.damage < 100 && this.temperature != 6000) return false;
 
         //horny_fire.useWith();
