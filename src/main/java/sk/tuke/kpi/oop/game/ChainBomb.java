@@ -20,7 +20,6 @@ public class ChainBomb extends TimeBomb {
     public ChainBomb(Float TIME)
     {
         super(TIME);
-        this.TIME = TIME;
         //this.timeBomb_on = new Animation("sprites/bomb_activated.png", 16, 16, 0.2f);
     }
 
@@ -58,7 +57,7 @@ public class ChainBomb extends TimeBomb {
         //setAnimation(timeBomb_on);
 
         new ActionSequence<>(
-            new Wait<>(this.TIME),
+            new Wait<>(this.getTIME()),
             new Invoke<>(this::activate_nearby),
             new Invoke<>(this::explode),
             new Wait<>(1f),

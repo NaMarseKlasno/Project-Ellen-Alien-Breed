@@ -60,4 +60,8 @@ public class TimeBomb extends AbstractActor {
         this.status = true;
     }
 
+    public float getTIME () {
+        return this.TIME;
+    }
+
 }

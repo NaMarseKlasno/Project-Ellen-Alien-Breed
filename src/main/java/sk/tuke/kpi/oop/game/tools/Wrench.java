@@ -7,11 +7,11 @@ import sk.tuke.kpi.oop.game.DefectiveLight;
 public class Wrench extends BreakableTool<DefectiveLight> {
 
     //private Animation wrench;
-    private boolean isPochinena;
+//    private boolean isPochinena;
 
     public Wrench() {
         super(2);
-        this.isPochinena = false;
+        //this.isPochinena = false;
 
         //this.wrench = new Animation("sprites/wrench.png");
         setAnimation(new Animation("sprites/wrench.png"));
@@ -20,12 +20,17 @@ public class Wrench extends BreakableTool<DefectiveLight> {
 //        this(1);
 //    }
 
+//    @Override
+//    public Class<DefectiveLight> getUsingActorClass() {
+//        return DefectiveLight.class;
+//    }
+
     @Override
     public void useWith(DefectiveLight LIGHT){
-        if (LIGHT == null || super.getRemainingUses() < 1 || this.isPochinena) return;
+        if (LIGHT == null || super.getRemainingUses() < 1) return;
         // repairable!=null && repairable.repair()
-        this.isPochinena = true;
-        super.useWith(LIGHT);
-        LIGHT.repair();
+//        this.isPochinena = true;
+        if (!LIGHT.repair()) super.useWith(LIGHT);
+        //LIGHT.repair();
     }
 }
