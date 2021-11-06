@@ -53,15 +53,31 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         return this.damage;
     }
 
-    public void increaseTemperature (int increment) {
-        if (increment < 1 && !isOn()) return;
+    public void increaseTemperature(int increment) {
+        if (increment < 1 || !this.isOn() || this.damage >= 100) return;
+        if (this.damage < 33) this.temperature += increment;
 
-        this.temperature += increment;
+        else if (this.damage < 67) this.temperature += Math.ceil((float)(increment * 1.5));
+
+        else this.temperature += increment * 2;
+
+
         if (this.temperature > 2000 && this.damage < 100) {
-            this.damage = ((this.temperature - 2000) * 100) / 4000;
-            if (this.damage>100) this.damage = 100;
-        } //if (this.temperature > 6000) this.temperature = 6000;
-        updateAnimation();
+            int damage = (int)Math.floor((float)((this.getTemperature() - 2000) / 40));
+            if (this.damage < damage) this.damage = damage;
+        }
+
+        if (this.damage == 100) this.turnOff();
+
+        this.updateAnimation();
+//        if (increment < 1 && !isOn()) return;
+//
+//        this.temperature += increment;
+//        if (this.temperature > 2000 && this.damage < 100) {
+//            this.damage = ((this.temperature - 2000) * 100) / 4000;
+//            if (this.damage>100) this.damage = 100;
+//        } //if (this.temperature > 6000) this.temperature = 6000;
+//        updateAnimation();
     }
     public void decreaseTemperature (int decrement) {
         if (!this.running || this.damage >= 100 || decrement < 0) return;
@@ -112,7 +128,7 @@ public class Reactor extends AbstractActor implements Switchable, Repairable {
         if (getTemperature() <= 4000 || getTemperature() >= 6000 || !this.running) return;
         setAnimation(overheatedAnimation);
     }
-    private void check3(){
+    private void check3() {
         if (this.damage != 100 || this.temperature < 6000 || !this.running) return;
         this.running = false;
         setAnimation(destroyAnimation);
