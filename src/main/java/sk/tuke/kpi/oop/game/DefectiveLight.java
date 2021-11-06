@@ -54,7 +54,7 @@ public class DefectiveLight extends Light implements Repairable {
             new Invoke <> (this::togglestatus)
         ).scheduleFor(this);
 
-        this.wait10Sec = false;
+        //this.wait10Sec = false;
         return this.isOn = true;
     }
 
