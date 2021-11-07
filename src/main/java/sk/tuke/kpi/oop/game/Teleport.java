@@ -60,36 +60,30 @@ public class Teleport extends AbstractActor
         //falseTeleport(player);
 
 
-        if (!this.TELB && !this.is_teleported && player != null && checkTeleport())
+        if (!this.TELB && !this.is_teleported && player != null && isContains())
             destination.teleportPlayer(player);
-        falseTeleport(player);
-    }
-
-    private void falseTeleport(Player player) {
         if (is_teleported &&  !this.intersects(player)) {
 //            this.is_teleported = false;
 //            this.destination.is_teleported = true;
 //            //this.is_teleported = false;
-            if (this.getScene().getFirstActorByType(Player.class).getPosY()+16 < this.getPosY() ||
-                this.getScene().getFirstActorByType(Player.class).getPosY()+16 > this.getPosY() + 48 ||
-                this.getScene().getFirstActorByType(Player.class).getPosX()+16 < this.getPosX() ||
-                this.getScene().getFirstActorByType(Player.class).getPosX()+16 > this.getPosX() + 48) {
+            if (this.getScene().getFirstActorByType(Player.class).getPosX()+16 < this.getPosX() ||
+                this.getScene().getFirstActorByType(Player.class).getPosX()+16 > this.getPosX()+48 ||
+                this.getScene().getFirstActorByType(Player.class).getPosY()+16 < this.getPosY() ||
+                this.getScene().getFirstActorByType(Player.class).getPosY()+16 > this.getPosY()+48)
+            {
                 this.is_teleported = false;
             }
-
         }
     }
 
-    private boolean checkTeleport() {
-        if (this.getScene().getFirstActorByType(Player.class).getPosY()+16 >= this.getPosY() &&
-            this.getScene().getFirstActorByType(Player.class).getPosY()+16 <= this.getPosY() + 48 &&
-            this.getScene().getFirstActorByType(Player.class).getPosX()+16 >= this.getPosX() &&
-            this.getScene().getFirstActorByType(Player.class).getPosX()+16 <= this.getPosX() + 48) {
+    private boolean isContains() {
+        if (this.getScene().getFirstActorByType(Player.class).getPosX()+16 >= this.getPosX() &&
+            this.getScene().getFirstActorByType(Player.class).getPosX()+16 <= this.getPosX() + 48 &&
+            this.getScene().getFirstActorByType(Player.class).getPosY()+16 >= this.getPosY() &&
+            this.getScene().getFirstActorByType(Player.class).getPosY()+16 <= this.getPosY() + 48) {
             return true;
         } return false;
     }
-
-
 
 
     public void teleportPlayer(Player player) {
@@ -111,7 +105,7 @@ public class Teleport extends AbstractActor
                     this.getScene().getFirstActorByType(Teleport.class).TELB = true;
                 }
 
-                is_teleported = true;
+                this.is_teleported = true;
                 player.setPosition(this.getPosX() + 8, this.getPosY() + 8);
                 //this.destination.is_teleported = true;
             //}
