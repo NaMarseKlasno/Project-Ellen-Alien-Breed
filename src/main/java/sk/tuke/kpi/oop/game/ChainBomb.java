@@ -22,8 +22,8 @@ public class ChainBomb extends TimeBomb {
     {
         List<Actor> ARR = getScene().getActors();
 
-        float X = (float)this.getPosX() - 50f;
-        float Y = (float)this.getPosY() - 50f;
+        float X = (float)this.getPosX() - 42f;
+        float Y = (float)this.getPosY() - 58f;
         Ellipse2D.Float ChainBomb_ellipse = new Ellipse2D.Float(X, Y, 100f, 100f);
 
         for (Actor ACTOR : ARR)
@@ -44,7 +44,7 @@ public class ChainBomb extends TimeBomb {
     @Override
     public void activate()
     {
-        System.out.println(super.isActivated());
+        //System.out.println(super.isActivated());
         if (isActivated()) return;
         new ActionSequence<>(
             new Invoke<>(this::setTrueStatus),
