@@ -11,26 +11,37 @@ public class Gameplay extends Scenario {
     @Override
     public void setupPlay(@NotNull Scene scene) {
 
-        Reactor reactor = new Reactor();  // vytvorenie instancie reaktora
-        scene.addActor(reactor, 146, 93);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
-        reactor.turnOn();
+        ChainBomb B1 = new ChainBomb(4f);
+        scene.addActor(B1, 40, 40);
 
-        Reactor reactor2 = new Reactor();  // vytvorenie instancie reaktora
-        scene.addActor(reactor2, 146, 253);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
-        reactor2.turnOn();
+        ChainBomb B2 = new ChainBomb(4f);
+        scene.addActor(B2, 65, 40);
 
-        Teleport T1 = new Teleport(null);
-        scene.addActor(T1, 50, 50);
-
-        Teleport T2 = new Teleport(null);
-        scene.addActor(T2, 50, 130);
-
-        Teleport T3 = new Teleport(null);
-        scene.addActor(T3, 50, 330);
+        ChainBomb B3 = new ChainBomb(4f);
+        scene.addActor(B3, 40, 65);
 
 
-        T1.setDestination(T3);
-        T2.setDestination(T3);
+
+//        Reactor reactor = new Reactor();  // vytvorenie instancie reaktora
+//        scene.addActor(reactor, 146, 93);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
+//        reactor.turnOn();
+//
+//        Reactor reactor2 = new Reactor();  // vytvorenie instancie reaktora
+//        scene.addActor(reactor2, 146, 253);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
+//        reactor2.turnOn();
+//
+//        Teleport T1 = new Teleport(null);
+//        scene.addActor(T1, 50, 50);
+//
+//        Teleport T2 = new Teleport(null);
+//        scene.addActor(T2, 50, 130);
+//
+//        Teleport T3 = new Teleport(null);
+//        scene.addActor(T3, 50, 330);
+//
+//
+//        T1.setDestination(T3);
+//        T2.setDestination(T3);
         //T3.getDestination(null);
 
 
