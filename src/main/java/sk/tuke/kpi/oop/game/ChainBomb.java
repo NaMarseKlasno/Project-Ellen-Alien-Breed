@@ -18,20 +18,20 @@ public class ChainBomb extends TimeBomb {
         super(TIME);
     }
 
-    private void activate_nearby()
+    private void activatenearby()
     {
         List<Actor> ARR = getScene().getActors();
 
-        float X = (float)this.getPosX() - 42f;
-        float Y = (float)this.getPosY() - 58f;
+        int X = this.getPosX() - 42;
+        int Y = this.getPosY() - 58;
         Ellipse2D.Float ChainBomb_ellipse = new Ellipse2D.Float(X, Y, 100f, 100f);
 
         for (Actor ACTOR : ARR)
         {
             if (ACTOR instanceof ChainBomb)
             {
-                X = ACTOR.getPosX() - (float)ACTOR.getWidth() / 2;
-                Y = ACTOR.getPosY() - (float)ACTOR.getHeight() / 2;
+                X = ACTOR.getPosX() - ACTOR.getWidth() / 2;
+                Y = ACTOR.getPosY() - ACTOR.getHeight() / 2;
 
                 Rectangle2D other_bomb = new Rectangle2D.Float(X, Y, ACTOR.getWidth(),ACTOR.getHeight());
 
@@ -50,7 +50,7 @@ public class ChainBomb extends TimeBomb {
             new Invoke<>(this::setTrueStatus),
             new Invoke<>(this::activateBomb),
             new Wait<>(this.getTIME()),
-            new Invoke<>(this::activate_nearby),
+            new Invoke<>(this::activatenearby),
             new Invoke<>(this::explode),
             new Wait<>(1f),
             new Invoke<>(this::remove)
