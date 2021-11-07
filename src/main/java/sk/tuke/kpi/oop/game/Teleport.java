@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
 
 public class Teleport extends AbstractActor
 {
-    private Animation teleport;
+//    private Animation teleport;
 
     private Teleport destination;
 //    private Player player;
@@ -25,8 +25,8 @@ public class Teleport extends AbstractActor
 
     public Teleport(Teleport tpshka)
     {
-        this.teleport = new Animation("sprites/lift.png");
-        setAnimation(this.teleport);
+        //this.teleport = new Animation("sprites/lift.png");
+        setAnimation(new Animation("sprites/lift.png"));
         is_teleported = false;
         destination = null;
         if (tpshka!=null) destination = tpshka;
@@ -83,7 +83,7 @@ public class Teleport extends AbstractActor
         {
             //this.is_teleported = true;
             this.is_teleported = true;
-            player.setPosition(destination.getPosX(), destination.getPosY());
+            player.setPosition(destination.getPosX()+8, destination.getPosY()+8);
             this.destination.is_teleported = true;
         }
 //        if (!is_teleported && this.intersects(this.player)) {
