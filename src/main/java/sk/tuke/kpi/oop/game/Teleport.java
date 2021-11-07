@@ -61,11 +61,12 @@ public class Teleport extends AbstractActor
 
         destinationTep(player);
 
-        if (player!=null && is_teleported && !this.intersects(player)) {
+//        if (player!=null && is_teleported && !this.intersects(player)) {
 //            this.is_teleported = false;
 //            this.destination.is_teleported = true;
 //            //this.is_teleported = false;
-            if (this.getScene().getFirstActorByType(Player.class).getPosX()+16 < this.getPosX() ||
+            if (player!=null && is_teleported && !this.intersects(player) &&
+                this.getScene().getFirstActorByType(Player.class).getPosX()+16 < this.getPosX() ||
                 this.getScene().getFirstActorByType(Player.class).getPosX()+16 > this.getPosX()+48 ||
                 this.getScene().getFirstActorByType(Player.class).getPosY()+16 < this.getPosY() ||
                 this.getScene().getFirstActorByType(Player.class).getPosY()+16 > this.getPosY()+48)
@@ -73,7 +74,7 @@ public class Teleport extends AbstractActor
                 this.is_teleported = false;
             }
         }
-    }
+//    }
 
     private void destinationTep(Player player) {
         if (!this.TELB && !this.is_teleported && player != null && isContains())
