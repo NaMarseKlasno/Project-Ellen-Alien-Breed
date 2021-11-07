@@ -27,7 +27,7 @@ public class Wrench extends BreakableTool<DefectiveLight> {
 
     @Override
     public void useWith(DefectiveLight LIGHT){
-        if (LIGHT == null || super.getRemainingUses() < 1) return;
+        if (LIGHT == null) return;
         // repairable!=null && repairable.repair()
 //        this.isPochinena = true;
         if (!LIGHT.repair()) super.useWith(LIGHT);

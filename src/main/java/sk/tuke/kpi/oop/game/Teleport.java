@@ -16,6 +16,7 @@ public class Teleport extends AbstractActor
 //    private Animation teleport;
 
     private Teleport destination;
+    private boolean TELB;
 //    private Player player;
 //    private Rectangle2D player_area;
 //    private Rectangle2D tp_area;
@@ -29,6 +30,7 @@ public class Teleport extends AbstractActor
         setAnimation(new Animation("sprites/lift.png"));
         is_teleported = false;
         destination = null;
+        this.TELB = false;
         if (tpshka!=null) destination = tpshka;
     }
 
@@ -41,9 +43,6 @@ public class Teleport extends AbstractActor
     }
 
 
-
-
-
     @Override
     public void addedToScene(@NotNull Scene scene) {
         super.addedToScene(scene);
@@ -51,9 +50,6 @@ public class Teleport extends AbstractActor
             new Invoke<>(this::teleport)
         ).scheduleFor(this);
     }
-
-
-
 
 
     public void teleport()
@@ -68,6 +64,7 @@ public class Teleport extends AbstractActor
     public void falseTeleport(Player player) {
         if (is_teleported &&  !this.intersects(player)) {
             this.is_teleported = false;
+            this.destination.is_teleported = true;
             //this.is_teleported = false;
         }
     }
@@ -79,8 +76,11 @@ public class Teleport extends AbstractActor
         Rectangle2D player_area = new Rectangle2D.Float(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
         Rectangle2D tp_area = new Rectangle2D.Float(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
 
-        if (!this.is_teleported && (tp_area.intersects(player_area.getCenterX(), player_area.getCenterY(), player_area.getWidth()/2, player_area.getHeight()/2)))
+        if (!this.TELB && !this.is_teleported && (tp_area.intersects(player_area.getCenterX(), player_area.getCenterY(), player_area.getWidth()/2, player_area.getHeight()/2)))
         {
+            if (player.getPosY() + 16 >= this.getScene().getFirstActorByType(Teleport.class).getPosY() && player.getPosY() + 16 <= this.getScene().getFirstActorByType(Teleport.class).getPosY() + 48 && player.getPosX() + 16 >= this.getScene().getFirstActorByType(Teleport.class).getPosX() && player.getPosX() + 16 <= this.getScene().getFirstActorByType(Teleport.class).getPosX() + 48) {
+                this.getScene().getFirstActorByType(Teleport.class).TELB = true;
+            }
             //this.is_teleported = true;
             this.is_teleported = true;
             player.setPosition(destination.getPosX()+8, destination.getPosY()+8);
