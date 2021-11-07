@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ChainBomb extends TimeBomb {
 
+    private List<Actor> ARR;
+
     //private Animation timeBomb_on;
 //    private List<Actor> ARR;
     //private float TIME;
@@ -26,7 +28,7 @@ public class ChainBomb extends TimeBomb {
 
     private void activate_nearby()
     {
-        List<Actor> ARR = getScene().getActors();
+        ARR = getScene().getActors();
         float X = (float)this.getPosX() - 50f, Y = (float)this.getPosY() - 50f;
 
 //        this.X = (float)this.getPosX() - 50f;
