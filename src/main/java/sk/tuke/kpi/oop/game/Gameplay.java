@@ -12,16 +12,29 @@ public class Gameplay extends Scenario {
     public void setupPlay(@NotNull Scene scene) {
 
         ChainBomb B1 = new ChainBomb(4f);
-        scene.addActor(B1, 40, 40);
+        scene.addActor(B1, 40, 50);
 
         ChainBomb B2 = new ChainBomb(4f);
-        scene.addActor(B2, 65, 40);
+        scene.addActor(B2, 40, 100);
 
         ChainBomb B3 = new ChainBomb(4f);
-        scene.addActor(B3, 40, 65);
+        scene.addActor(B3, 40, 150);
+
+        ChainBomb B4 = new ChainBomb(4f);
+        scene.addActor(B4, 40, 200);
+
+        ChainBomb B5 = new ChainBomb(4f);
+        scene.addActor(B5, 40, 250);
 
 
 
+        ChainBomb B6 = new ChainBomb(4f);
+        scene.addActor(B6, 200, 95);
+
+        ChainBomb B7 = new ChainBomb(4f);
+        scene.addActor(B7, 125, 70);
+
+        //x=200, y=95
 //        Reactor reactor = new Reactor();  // vytvorenie instancie reaktora
 //        scene.addActor(reactor, 146, 93);  // pridanie reaktora do sceny na poziciu [x=64, y=64]
 //        reactor.turnOn();

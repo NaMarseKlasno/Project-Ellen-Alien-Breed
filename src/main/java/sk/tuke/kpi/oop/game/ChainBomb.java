@@ -18,26 +18,31 @@ public class ChainBomb extends TimeBomb {
         super(TIME);
     }
 
+    private Ellipse2D.Float ellipseBomb()
+    {
+        int X = this.getPosX();
+        int Y = this.getPosY();
+        return new Ellipse2D.Float(X-42, Y-58, 100f, 100f);
+    }
+
+    private Rectangle2D.Float check(Actor actor)
+    {
+        int x = actor.getPosX();
+        int y = actor.getPosY();
+
+        int W = actor.getWidth();
+        int H = actor.getHeight();
+        return new Rectangle2D.Float(x, y-H, W, H);
+    }
+
     private void activatenearby()
     {
         List<Actor> ARR = getScene().getActors();
 
-        int X = this.getPosX() - 42;
-        int Y = this.getPosY() - 58;
-        Ellipse2D.Float ChainBomb_ellipse = new Ellipse2D.Float(X, Y, 100f, 100f);
-
         for (Actor ACTOR : ARR)
         {
-            if (ACTOR instanceof ChainBomb)
-            {
-                X = ACTOR.getPosX() - ACTOR.getWidth() / 2;
-                Y = ACTOR.getPosY() - ACTOR.getHeight() / 2;
-
-                Rectangle2D other_bomb = new Rectangle2D.Float(X, Y, ACTOR.getWidth(),ACTOR.getHeight());
-
-                if (ChainBomb_ellipse.contains(other_bomb) || ChainBomb_ellipse.intersects(other_bomb))
-                    ((ChainBomb)ACTOR).activate();
-            }
+            if ( ACTOR instanceof ChainBomb && (ellipseBomb().contains(check(ACTOR)) || ellipseBomb().intersects(check(ACTOR)) ))
+                ((ChainBomb)ACTOR).activate();
         }
     }
 
