@@ -15,25 +15,16 @@ public class ChainBomb extends TimeBomb {
 
     private List<Actor> ARR;
 
-    //private Animation timeBomb_on;
-//    private List<Actor> ARR;
-    //private float TIME;
 
-    public ChainBomb(Float TIME)
+    public ChainBomb(float TIME)
     {
         super(TIME);
-        //this.timeBomb_on = new Animation("sprites/bomb_activated.png", 16, 16, 0.2f);
     }
-
 
     private void activate_nearby()
     {
         ARR = getScene().getActors();
         float X = (float)this.getPosX() - 50f, Y = (float)this.getPosY() - 50f;
-
-//        this.X = (float)this.getPosX() - 50f;
-//        this.Y = (float)this.getPosY() - 50f;
-
         Ellipse2D.Float ChainBomb_ellipse = new Ellipse2D.Float(X, Y, 100f, 100f);
 
         for (Actor ACTOR : ARR)
@@ -55,9 +46,6 @@ public class ChainBomb extends TimeBomb {
     public void activate()
     {
         if (isActivated()) return;
-
-        //setAnimation(timeBomb_on);
-
         new ActionSequence<>(
             new Invoke<>(this::activateBomb),
             new Wait<>(this.getTIME()),
