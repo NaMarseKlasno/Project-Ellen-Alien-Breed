@@ -13,9 +13,6 @@ import java.util.List;
 
 public class ChainBomb extends TimeBomb {
 
-    private List<Actor> ARR;
-
-
     public ChainBomb(float TIME)
     {
         super(TIME);
@@ -23,7 +20,7 @@ public class ChainBomb extends TimeBomb {
 
     private void activate_nearby()
     {
-        ARR = getScene().getActors();
+        List<Actor> ARR = getScene().getActors();
         float X = (float)this.getPosX() - 50f, Y = (float)this.getPosY() - 50f;
         Ellipse2D.Float ChainBomb_ellipse = new Ellipse2D.Float(X, Y, 100f, 100f);
 
@@ -55,5 +52,4 @@ public class ChainBomb extends TimeBomb {
             new Invoke<>(this::remove)
         ).scheduleFor(this);
     }
-
 }
