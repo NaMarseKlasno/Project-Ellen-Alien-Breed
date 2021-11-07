@@ -1,6 +1,6 @@
 package sk.tuke.kpi.oop.game;
 
-import sk.tuke.kpi.gamelib.actions.*;
+import sk.tuke.kpi.gamelib.actions.Invoke;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.Scene;
@@ -59,10 +59,9 @@ public class Teleport extends AbstractActor
         Player player = this.getScene().getFirstActorByType(Player.class);
         //falseTeleport(player);
 
+        destinationTep(player);
 
-        if (!this.TELB && !this.is_teleported && player != null && isContains())
-            destination.teleportPlayer(player);
-        if (is_teleported &&  !this.intersects(player)) {
+        if (player!=null && is_teleported && !this.intersects(player)) {
 //            this.is_teleported = false;
 //            this.destination.is_teleported = true;
 //            //this.is_teleported = false;
@@ -74,6 +73,11 @@ public class Teleport extends AbstractActor
                 this.is_teleported = false;
             }
         }
+    }
+
+    private void destinationTep(Player player) {
+        if (!this.TELB && !this.is_teleported && player != null && isContains())
+            destination.teleportPlayer(player);
     }
 
     private boolean isContains() {
