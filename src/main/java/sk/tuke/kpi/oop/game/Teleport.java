@@ -58,7 +58,7 @@ public class Teleport extends AbstractActor
 
         Player player = this.getScene().getLastActorByType(Player.class);
         //falseTeleport(player);
-        teleportPlayer(player);
+        destination.teleportPlayer(player);
         falseTeleport(player);
     }
     public void falseTeleport(Player player) {
