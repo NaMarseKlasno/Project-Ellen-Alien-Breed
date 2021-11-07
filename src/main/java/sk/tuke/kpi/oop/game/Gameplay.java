@@ -20,13 +20,13 @@ public class Gameplay extends Scenario {
         reactor2.turnOn();
 
         Teleport T1 = new Teleport(null);
-        scene.addActor(T1, 40, 50);
+        scene.addActor(T1, 50, 50);
 
         Teleport T2 = new Teleport(null);
-        scene.addActor(T2, 40, 130);
+        scene.addActor(T2, 50, 130);
 
         Teleport T3 = new Teleport(null);
-        scene.addActor(T3, 40, 330);
+        scene.addActor(T3, 50, 330);
 
 
         T1.setDestination(T3);

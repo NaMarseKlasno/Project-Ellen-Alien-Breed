@@ -27,10 +27,10 @@ public class Wrench extends BreakableTool<DefectiveLight> {
 
     @Override
     public void useWith(DefectiveLight LIGHT){
-        if (LIGHT == null) return;
+        if (LIGHT == null || !LIGHT.repair()) return;
         // repairable!=null && repairable.repair()
 //        this.isPochinena = true;
-        if (!LIGHT.repair()) super.useWith(LIGHT);
+        super.useWith(LIGHT);
         //LIGHT.repair();
     }
 }
