@@ -67,4 +67,8 @@ public class TimeBomb extends AbstractActor {
         return this.TIME;
     }
 
+    public void setTrueStatus() {
+        this.status = true;
+    }
+
 }

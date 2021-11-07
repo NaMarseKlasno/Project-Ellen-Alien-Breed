@@ -44,8 +44,10 @@ public class ChainBomb extends TimeBomb {
     @Override
     public void activate()
     {
+        System.out.println(super.isActivated());
         if (isActivated()) return;
         new ActionSequence<>(
+            new Invoke<>(this::setTrueStatus),
             new Invoke<>(this::activateBomb),
             new Wait<>(this.getTIME()),
             new Invoke<>(this::activate_nearby),
