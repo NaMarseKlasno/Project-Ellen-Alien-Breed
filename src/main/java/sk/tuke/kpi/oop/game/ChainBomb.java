@@ -1,10 +1,12 @@
 package sk.tuke.kpi.oop.game;
 
+import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.actions.ActionSequence;
 import sk.tuke.kpi.gamelib.actions.Invoke;
 import sk.tuke.kpi.gamelib.actions.Wait;
 import java.awt.geom.Ellipse2D;
 import sk.tuke.kpi.gamelib.Actor;
+import sk.tuke.kpi.gamelib.actions.When;
 //import sk.tuke.kpi.gamelib.graphics.Animation;
 
 import java.awt.geom.Rectangle2D;
@@ -12,6 +14,8 @@ import java.util.List;
 //import java.util.Set;
 
 public class ChainBomb extends TimeBomb {
+
+    private Disposable disposable;
 
     public ChainBomb(float TIME)
     {
@@ -51,14 +55,27 @@ public class ChainBomb extends TimeBomb {
     {
         //System.out.println(super.isActivated());
         if (isActivated()) return;
-        new ActionSequence<>(
-            new Invoke<>(this::setTrueStatus),
+        this.disposable = new ActionSequence<>(
             new Invoke<>(this::activateBomb),
+            new Invoke<>(this::setTrueStatus),
             new Wait<>(this.getTIME()),
             new Invoke<>(this::activatenearby),
-            new Invoke<>(this::explode),
-            new Wait<>(0.3f*8f),
-            new Invoke<>(this::remove)
+            new Invoke<>(this::explode)
+            //new Wait<>(0.3f*8f),
+            //new Invoke<>(this::remove)
         ).scheduleFor(this);
+    }
+
+    @Override
+    public void explode()
+    {
+        setTimeBombExploded();
+
+        this.disposable.dispose();
+        this.disposable =
+            new When<>(() -> this.getAnimation().getCurrentFrameIndex() >= this.getAnimation().getFrameCount()-1,
+            new Invoke <> (() -> getScene().removeActor(this))
+        ).scheduleFor(this);
+        //this.status = true;
     }
 }

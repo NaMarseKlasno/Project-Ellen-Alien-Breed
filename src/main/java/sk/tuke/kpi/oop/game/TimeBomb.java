@@ -1,7 +1,9 @@
 package sk.tuke.kpi.oop.game;
 
+import sk.tuke.kpi.gamelib.Disposable;
 import sk.tuke.kpi.gamelib.actions.Invoke;
 import sk.tuke.kpi.gamelib.actions.Wait;
+import sk.tuke.kpi.gamelib.actions.When;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.actions.ActionSequence;
@@ -18,6 +20,7 @@ public class TimeBomb extends AbstractActor {
 //    private float start_time;
 //    private float sub_time_seconds;
     private float TIME;
+    private Disposable disposable;
 
 
     public TimeBomb(float TIME)
@@ -25,8 +28,8 @@ public class TimeBomb extends AbstractActor {
         this.status = false;
         this.TIME = TIME;
 
-        this.timeBomb_on = new Animation("sprites/bomb_activated.png", 16, 16, 0.2f);
-        this.timeBomb_exploded = new Animation("sprites/small_explosion.png", 16, 16, 0.3f);
+        this.timeBomb_on = new Animation("sprites/bomb_activated.png", 16, 16, 0.2f, Animation.PlayMode.LOOP_PINGPONG);
+        this.timeBomb_exploded = new Animation("sprites/small_explosion.png", 16, 16, 0.2f, Animation.PlayMode.ONCE);
 
         setAnimation(new Animation("sprites/bomb.png"));
     }
@@ -39,11 +42,11 @@ public class TimeBomb extends AbstractActor {
         setAnimation(this.timeBomb_on);
         this.status = true;
 
-        new ActionSequence<>(
+        this.disposable = new ActionSequence<>(
             new Wait<>(this.TIME),
-            new Invoke<>(this::explode),
-            new Wait<>(0.3f*8f),
-            new Invoke<>(this::remove)
+            new Invoke<>(this::explode)
+            //new Wait<>(0.3f*8f),
+            //new Invoke<>(this::remove)
         ).scheduleFor(this);
     }
 
@@ -51,16 +54,21 @@ public class TimeBomb extends AbstractActor {
         return this.status;
     }
 
-    public void remove() {
-        getScene().removeActor(this);
-    }
-
     public void explode() {
         setAnimation(this.timeBomb_exploded);
-        this.status = true;
+        this.disposable.dispose();
+        this.disposable =
+            new When   <> (() -> this.getAnimation().getCurrentFrameIndex() >= this.getAnimation().getFrameCount()-1,
+            new Invoke <> (() -> getScene().removeActor(this))
+        ).scheduleFor(this);
+        //this.status = true;
     }
     public void activateBomb() {
         setAnimation(this.timeBomb_on);
+    }
+
+    public void setTimeBombExploded() {
+        setAnimation(timeBomb_exploded);
     }
 
     public float getTIME () {
@@ -70,5 +78,4 @@ public class TimeBomb extends AbstractActor {
     public void setTrueStatus() {
         this.status = true;
     }
-
 }
