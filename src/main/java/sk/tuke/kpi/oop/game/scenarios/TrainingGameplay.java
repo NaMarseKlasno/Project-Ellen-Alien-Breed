@@ -1,16 +1,15 @@
-package sk.tuke.kpi.oop.game;
+package sk.tuke.kpi.oop.game.scenarios;
 
 import org.jetbrains.annotations.NotNull;
 import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.Scenario;
+import sk.tuke.kpi.oop.game.ChainBomb;
 
 
-public class Gameplay extends Scenario {
-
-
+public class TrainingGameplay extends Scenario
+{
     @Override
     public void setupPlay(@NotNull Scene scene) {
-
 
         ChainBomb B5 = new ChainBomb(4f);
         scene.addActor(B5, 150, 150);
@@ -27,8 +26,6 @@ public class Gameplay extends Scenario {
         ChainBomb B4 = new ChainBomb(4f);
         scene.addActor(B4, 200, 50);
 
-//
-//
 //        ChainBomb B6 = new ChainBomb(4f);
 //        scene.addActor(B6, 200, 95);
 //

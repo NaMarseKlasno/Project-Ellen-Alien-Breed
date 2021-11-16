@@ -53,16 +53,14 @@ public class ChainBomb extends TimeBomb {
     @Override
     public void activate()
     {
-        //System.out.println(super.isActivated());
         if (isActivated()) return;
+
         this.disposable = new ActionSequence<>(
             new Invoke<>(this::activateBomb),
             new Invoke<>(this::setTrueStatus),
             new Wait<>(this.getTIME()),
             new Invoke<>(this::activatenearby),
             new Invoke<>(this::explode)
-            //new Wait<>(0.3f*8f),
-            //new Invoke<>(this::remove)
         ).scheduleFor(this);
     }
 
