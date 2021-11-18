@@ -30,7 +30,8 @@ public class FirstSteps implements SceneListener
 
 
         Energy energy = new Energy();
-        scene.addActor(energy,-100, 50);
+        ripley.setEnergy(50);
+        scene.addActor(energy,60, 60);
         new When<>(
             () -> ripley.intersects(energy),
             new Invoke<>(() -> energy.useWith(ripley))
@@ -38,7 +39,7 @@ public class FirstSteps implements SceneListener
 
 
         Ammo ammo = new Ammo();
-        scene.addActor(ammo,-200, 50);
+        scene.addActor(ammo,80, 80);
         new When<>(
             () -> ripley.intersects(ammo),
             new Invoke<>(() -> ammo.useWith(ripley))
