@@ -7,29 +7,52 @@ import sk.tuke.kpi.oop.game.Movable;
 
 public class Ripley extends AbstractActor implements Movable
 {
-    private Animation player;
-    private int speed;
+    private Animation PLAYER;
+    private int SPEED;
+    private int ENERGY;
+    private int AMMO;
 
     public Ripley() {
         super("Ellen");
-        this.player = new Animation("sprites/player.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
-        setAnimation(this.player);
-        this.speed = 2;
+
+        this.PLAYER = new Animation("sprites/player.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
+        setAnimation(this.PLAYER);
+
+        this.SPEED = 2;
+        this.ENERGY = 100;
+        this.AMMO = 100;
     }
+
 
     @Override
     public int getSpeed() {
-        return this.speed;
+        return this.SPEED;
     }
 
     @Override
     public void startedMoving(Direction direction) {
-        this.player.setRotation(direction.getAngle());
-        this.player.play();
+        this.PLAYER.setRotation(direction.getAngle());
+        this.PLAYER.play();
     }
 
     @Override
     public void stoppedMoving() {
-        this.player.pause();
+        this.PLAYER.pause();
     }
-}
+
+    public int getEnergy() {
+        return this.ENERGY;
+    }
+
+    public void setEnergy(int SET) {
+        this.ENERGY = SET;
+    }
+
+    public int getAMMO() {
+        return this.AMMO;
+    }
+
+    public void setAMMO(int ammo) {
+        this.AMMO = ammo;
+    }
+ }

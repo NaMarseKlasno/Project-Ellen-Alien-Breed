@@ -18,10 +18,6 @@ public class Main {
         scene.addListener(scenar);
 
 
-
-
-
-
         game.getInput().onKeyPressed(Input.Key.ESCAPE, game::stop);
         game.start();
     }
