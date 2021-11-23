@@ -6,17 +6,17 @@ import sk.tuke.kpi.gamelib.Actor;
 
 public class Use<A extends Actor> extends AbstractAction<A> {
 
-    private Usable<A> item;
+    private Usable<A> ITEM;
 
     public Use(Usable<A> item) {
-        this.item=item;
+        this.ITEM = item;
     }
 
 
     @Override
     public void execute(float deltaTime) {
         if (isDone()) return;
-        item.useWith(getActor());
+        ITEM.useWith(getActor());
         setDone(true);
     }
 }

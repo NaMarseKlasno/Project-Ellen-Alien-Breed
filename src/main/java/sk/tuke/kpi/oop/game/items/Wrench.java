@@ -4,8 +4,7 @@ import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.DefectiveLight;
 //import sk.tuke.kpi.oop.game.Repairable;
 
-public class Wrench extends BreakableTool<DefectiveLight> {
-
+public class Wrench extends BreakableTool <DefectiveLight> implements Collectible {
     //private Animation wrench;
 //    private boolean isPochinena;
 

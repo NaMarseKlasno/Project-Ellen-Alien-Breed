@@ -1,16 +1,21 @@
 package sk.tuke.kpi.oop.game.characters;
 
+import sk.tuke.kpi.gamelib.Actor;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.Direction;
+import sk.tuke.kpi.oop.game.Keeper;
 import sk.tuke.kpi.oop.game.Movable;
+import sk.tuke.kpi.oop.game.items.Backpack;
 
-public class Ripley extends AbstractActor implements Movable
+public class Ripley extends AbstractActor implements Movable, Keeper<Actor>
 {
     private Animation PLAYER;
     private int SPEED;
     private int ENERGY;
     private int AMMO;
+    private Backpack BACKPACK;
+
 
     public Ripley() {
         super("Ellen");
@@ -21,6 +26,7 @@ public class Ripley extends AbstractActor implements Movable
         this.SPEED = 2;
         this.ENERGY = 100;
         this.AMMO = 100;
+        this.BACKPACK = new Backpack("Ripley's backpack",10);
     }
 
 
@@ -55,4 +61,9 @@ public class Ripley extends AbstractActor implements Movable
     public void setAMMO(int ammo) {
         this.AMMO = ammo;
     }
- }
+
+    @Override
+    public Backpack getBackpack() {
+        return this.BACKPACK;
+    }
+}
