@@ -50,8 +50,8 @@ public class MovableController implements KeyboardListener {
     {
         Direction direction = Direction.NONE;
 
-        for (Direction direction1:ARRAY) direction = direction.combine(direction1);
-        if (ARRAY.isEmpty() || lastMove!=null) lastMove.stop();
+        for (Direction DIR : ARRAY) direction = direction.combine(DIR);
+        if (ARRAY.isEmpty() || lastMove != null) lastMove.stop();
 
         if (direction != Direction.NONE)
         {
@@ -60,5 +60,4 @@ public class MovableController implements KeyboardListener {
             lastMove.scheduleFor(PLAYER);
         }
     }
-
 }

@@ -5,6 +5,8 @@ import sk.tuke.kpi.gamelib.actions.Action;
 import sk.tuke.kpi.oop.game.Direction;
 import sk.tuke.kpi.oop.game.Movable;
 
+import java.util.Objects;
+
 public class Move<A extends Movable> implements Action<Movable>
 {
     private Movable actor;
@@ -51,11 +53,14 @@ public class Move<A extends Movable> implements Action<Movable>
             this.amount++;
         }
 
-        if (actor.getScene().getMap().intersectsWithWall(actor)) return;
         actor.setPosition(actor.getPosX()+(direction.getDx()*actor.getSpeed()), actor.getPosY()+(direction.getDy()*actor.getSpeed()));
+
         if (actor.getScene().getMap().intersectsWithWall(actor)) {
-            actor.setPosition(actor.getPosX(), actor.getPosY());
-            this.stop();
+            int newX = actor.getPosX() - direction.getDx() * actor.getSpeed();
+            int newY = actor.getPosY() - direction.getDy() * actor.getSpeed();
+            actor.setPosition(newX, newY);
+//            actor.setPosition(actor.getPosX(), actor.getPosY());
+//            this.stop();
         } if (this.duration <= 1e-5) this.stop();
     }
 

@@ -1,8 +1,8 @@
 package sk.tuke.kpi.oop.game.items;
 
 import sk.tuke.kpi.gamelib.graphics.Animation;
+import sk.tuke.kpi.oop.game.DefectiveLight;
 import sk.tuke.kpi.oop.game.Reactor;
-
 
 public class Hammer extends BreakableTool<Reactor> implements Collectible {
     //private Animation hammer;
@@ -13,16 +13,22 @@ public class Hammer extends BreakableTool<Reactor> implements Collectible {
         //this.hammer = new Animation("sprites/hammer.png");
         setAnimation(new Animation("sprites/hammer.png"));
     }
+
     public Hammer() {
         this(1);
     }
 
     @Override
-    public void useWith(Reactor REACTOR){
+    public void useWith(Reactor REACTOR) {
         if (REACTOR == null || super.getRemainingUses() < 1 || REACTOR.getDamage() == 0) return;
 
         super.useWith(REACTOR);
         REACTOR.repair();
+    }
+
+    @Override
+    public Class<Reactor> getUsingActorClass() {
+        return Reactor.class;
     }
 }
 

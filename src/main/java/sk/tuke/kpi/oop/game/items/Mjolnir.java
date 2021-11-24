@@ -26,5 +26,4 @@ public class Mjolnir extends Hammer {
 //            getScene().removeActor(this);
 //        REACTOR.repair();
 //    }
-
 }

@@ -32,4 +32,9 @@ public class Wrench extends BreakableTool <DefectiveLight> implements Collectibl
         super.useWith(LIGHT);
         //LIGHT.repair();
     }
+
+    @Override
+    public Class<DefectiveLight> getUsingActorClass() {
+        return DefectiveLight.class;
+    }
 }
