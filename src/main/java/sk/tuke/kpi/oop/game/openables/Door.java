@@ -6,6 +6,7 @@ import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.gamelib.map.MapTile;
+import sk.tuke.kpi.gamelib.messages.Topic;
 import sk.tuke.kpi.oop.game.Openable;
 import sk.tuke.kpi.oop.game.items.Usable;
 
@@ -14,6 +15,9 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
 {
     Animation DOOR;
     private boolean STATUS;
+
+    public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
+    public static final Topic<Door> DOOR_OPENED = Topic.create("door opened", Door.class);
 
 
     public Door() {
@@ -45,6 +49,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
         title2.setType(MapTile.Type.CLEAR);
 
         this.DOOR.play();
+        this.getScene().getMessageBus().publish(DOOR_OPENED, this);
 //        this.DOOR.stop();
     }
 
@@ -60,6 +65,8 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
 
         MapTile title2 = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16+1);
         title2.setType(MapTile.Type.WALL);
+
+        this.getScene().getMessageBus().publish(DOOR_CLOSED, this);
     }
 
 
