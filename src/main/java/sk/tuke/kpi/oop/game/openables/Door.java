@@ -13,7 +13,7 @@ import sk.tuke.kpi.oop.game.items.Usable;
 
 public class Door extends AbstractActor implements Openable, Usable<Actor>
 {
-    Animation DOOR;
+    private Animation DOOR;
     private boolean STATUS;
 
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);

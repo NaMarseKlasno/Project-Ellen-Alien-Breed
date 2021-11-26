@@ -107,7 +107,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive
         Objects.requireNonNull(getScene()).getMessageBus().publish(RIPLEY_DIED, this);
         setAnimation(this.PLAYER_DIE);
         getScene().cancelActions(this);
-//        this.reduceEnergy.dispose();
+        //this.reduceEnergy.dispose();
     }
 
     public Disposable getReduceEnergy() {

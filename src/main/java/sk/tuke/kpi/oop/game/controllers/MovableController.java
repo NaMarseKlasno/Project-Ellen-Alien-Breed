@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class MovableController implements KeyboardListener {
 
-    Movable PLAYER;
+    private Movable PLAYER;
     private List<Direction> ARRAY;
     private Move<Movable> lastMove;
 

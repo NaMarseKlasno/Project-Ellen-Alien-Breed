@@ -15,7 +15,7 @@ import sk.tuke.kpi.oop.game.openables.LockedDoor;
 
 public class EscapeRoom implements SceneListener
 {
-    Ripley ACTOR;
+    private Ripley ACTOR;
 
     public static class Factory implements ActorFactory
     {
