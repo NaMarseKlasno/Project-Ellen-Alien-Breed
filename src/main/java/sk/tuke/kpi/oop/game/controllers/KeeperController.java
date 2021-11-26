@@ -35,7 +35,7 @@ public class KeeperController implements KeyboardListener {
                 new Shift<>().scheduleFor(KEEPER);
                 break;
             case U:
-                Usable<?> USE = (Usable<?>) Objects.requireNonNull(this.KEEPER.getScene()).getActors().stream().filter(this.KEEPER::intersects).filter(Usable.class::isInstance).map(Usable.class::cast).findFirst().orElse(null);
+                Usable<?> USE = Objects.requireNonNull(this.KEEPER.getScene()).getActors().stream().filter(this.KEEPER::intersects).filter(Usable.class::isInstance).map(Usable.class::cast).findFirst().orElse(null);
                 if (USE == null) return;
                 new Use<>(USE).scheduleForIntersectingWith(this.KEEPER);
             case B:

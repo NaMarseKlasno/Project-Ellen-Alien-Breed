@@ -23,10 +23,9 @@ public class Ventilator extends AbstractActor implements Repairable
     {
         if (!this.STATUS) return false;
 
-        this.getScene().getMessageBus().publish(VENTILATOR_REPAIRED,this);
-        this.getAnimation().play();
-
         this.STATUS = false;
+        this.getAnimation().play();
+        this.getScene().getMessageBus().publish(VENTILATOR_REPAIRED,this);
         return true;
     }
 

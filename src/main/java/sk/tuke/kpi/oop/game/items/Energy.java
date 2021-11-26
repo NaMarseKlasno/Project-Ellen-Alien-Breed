@@ -2,12 +2,12 @@ package sk.tuke.kpi.oop.game.items;
 
 import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.graphics.Animation;
-import sk.tuke.kpi.oop.game.DefectiveLight;
+import sk.tuke.kpi.oop.game.characters.Alive;
 import sk.tuke.kpi.oop.game.characters.Ripley;
 
 import java.util.Objects;
 
-public class Energy extends AbstractActor implements Usable<Ripley> {
+public class Energy extends AbstractActor implements Usable<Alive> {
 
     public Energy()
     {
@@ -15,15 +15,15 @@ public class Energy extends AbstractActor implements Usable<Ripley> {
     }
 
     @Override
-    public void useWith(Ripley actor) {
-        if (actor == null || actor.getEnergy() == 100) return;
+    public void useWith(Alive actor) {
+        if (actor == null || actor.getHealth().getValue() == 100) return;
 
-        actor.setEnergy(100);
+        actor.getHealth().refill(100);
         (Objects.requireNonNull(getScene())).removeActor(this);
     }
 
     @Override
-    public Class<Ripley> getUsingActorClass() {
-        return Ripley.class;
+    public Class<Alive> getUsingActorClass() {
+        return Alive.class;
     }
 }
