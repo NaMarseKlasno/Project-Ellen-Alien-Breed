@@ -47,6 +47,8 @@ public class EscapeRoom implements SceneListener
             }
         }
     }
+
+
     @Override
     public void sceneInitialized(@NotNull Scene scene)
     {
@@ -72,7 +74,6 @@ public class EscapeRoom implements SceneListener
         scene.getMessageBus().subscribe(Door.DOOR_OPENED, (Ripley) -> ACTOR.reduce_energy());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerMove.dispose());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerKeeper.dispose());
-        scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> ACTOR.getReduceEnergy().dispose());
         scene.getMessageBus().subscribe(Ventilator.VENTILATOR_REPAIRED, (Ripley) -> ACTOR.getReduceEnergy().dispose());
     }
 

@@ -38,6 +38,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive
         this.PLAYER = new Animation("sprites/player.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG);
         this.PLAYER_DIE = new Animation("sprites/player_die.png", 32, 32, 0.1f, Animation.PlayMode.ONCE);
         setAnimation(this.PLAYER);
+        this.PLAYER.pause();
 
 
         this.SPEED = 2;
@@ -63,7 +64,7 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive
 
     @Override
     public void stoppedMoving() {
-        this.PLAYER.pause();
+        this.PLAYER.stop();
     }
 
     public int getAMMO() {
@@ -88,26 +89,24 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive
 
     public void reduce_energy()
     {
-        if (this.HEALTH.getValue() <= 0) {
-            onExhaustion();
-            return;
-        }
+//        if (this.HEALTH.getValue() <= 0) {
+//            onExhaustion();
+//            return;
+//        }
 
         this.reduceEnergy = new Loop<>(
             new ActionSequence<>(
                 new Wait<>(0.35f),
-                new Invoke<>(() -> {
-                    this.HEALTH.drain(1);
-                })
+                new Invoke<>(() -> this.HEALTH.drain(1))
             )
         ).scheduleFor(this);
     }
 
     private void onExhaustion() {
-        Objects.requireNonNull(getScene()).getMessageBus().publish(RIPLEY_DIED, this);
         setAnimation(this.PLAYER_DIE);
-        getScene().cancelActions(this);
-        //this.reduceEnergy.dispose();
+        Objects.requireNonNull(getScene()).cancelActions(this);
+//        if (this.reduceEnergy != null) this.reduceEnergy.dispose();
+        Objects.requireNonNull(getScene()).getMessageBus().publish(RIPLEY_DIED, this);
     }
 
     public Disposable getReduceEnergy() {
@@ -117,5 +116,11 @@ public class Ripley extends AbstractActor implements Movable, Keeper, Alive
     @Override
     public Health getHealth() {
         return this.HEALTH;
+    }
+
+    @Override
+    public void addedToScene(@NotNull Scene scene) {
+        super.addedToScene(scene);
+        this.HEALTH.onExhaustion(this::onExhaustion);
     }
 }
