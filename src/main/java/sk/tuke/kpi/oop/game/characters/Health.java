@@ -14,6 +14,7 @@ public class Health
         this.value = state;
         this.maxValue = max;
         this.LIST = new ArrayList<>();
+        this.isAlive = true;
     }
 
     public Health(int state){

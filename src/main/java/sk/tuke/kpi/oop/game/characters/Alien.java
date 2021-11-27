@@ -38,14 +38,17 @@ public class Alien extends AbstractActor implements Movable, Enemy, Alive
     {
         super.addedToScene(scene);
 
-        new Loop<> (
-            new ActionSequence <> (
-                new Invoke <> (() -> drainHealthAlien(Objects.requireNonNull(this.getScene()).getActors())),
-                new Wait   <> (.05f)
-            )
+        new Loop<>(
+            new Invoke<>(() -> killAlien(getHealth().getValue()))
         ).scheduleFor(this);
 
-        //this.HEALTH.onExhaustion(() -> Objects.requireNonNull(this.getScene()).removeActor(this));
+        new Loop<> (
+            new ActionSequence <> (
+//                new Invoke <> (this::test),
+                new Invoke <> (() -> drainHealthAlien(Objects.requireNonNull(this.getScene()).getActors())),
+                new Wait   <> (.04f)
+            )
+        ).scheduleFor(this);
     }
 
     private void drainHealthAlien(List<Actor> ACTORS)
@@ -54,4 +57,13 @@ public class Alien extends AbstractActor implements Movable, Enemy, Alive
             if (actor instanceof Alive && !(actor instanceof Enemy) && this.intersects(actor))
                 ((Alive) actor).getHealth().drain(1);
     }
+
+    private void killAlien(int health) {
+        if (health > 0) return;
+        Objects.requireNonNull(this.getScene()).removeActor(this);
+    }
+
+//    private void test() {
+//        getHealth().drain(1);
+//    }
 }
