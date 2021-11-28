@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.*;
 import sk.tuke.kpi.oop.game.Locker;
 import sk.tuke.kpi.oop.game.Ventilator;
+import sk.tuke.kpi.oop.game.behaviours.RandomlyMoving;
 import sk.tuke.kpi.oop.game.characters.Alien;
 import sk.tuke.kpi.oop.game.characters.AlienMother;
 import sk.tuke.kpi.oop.game.characters.Ripley;
@@ -14,6 +15,8 @@ import sk.tuke.kpi.oop.game.controllers.ShooterController;
 import sk.tuke.kpi.oop.game.items.*;
 import sk.tuke.kpi.oop.game.openables.Door;
 import sk.tuke.kpi.oop.game.openables.LockedDoor;
+
+import java.util.Objects;
 
 public class EscapeRoom implements SceneListener
 {
@@ -49,6 +52,7 @@ public class EscapeRoom implements SceneListener
                 case "ammo":
                     return new Ammo();
                 case "alien":
+                    if (Objects.equals(type, "running")) return new Alien(50, new RandomlyMoving());
                     return new Alien();
                 case "alien mother":
                     return new AlienMother();

@@ -23,6 +23,13 @@ public class Move<A extends Movable> implements Action<Movable>
         this.oldDuration = duration;
     }
 
+    public Move(Direction direction) {
+        this.duration = Integer.MAX_VALUE;
+        this.direction = direction;
+        this.amount = 0;
+        this.oldDuration = duration;
+    }
+
 
     @Override
     public @Nullable Movable getActor() {

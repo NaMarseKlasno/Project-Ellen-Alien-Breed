@@ -10,6 +10,7 @@ import sk.tuke.kpi.gamelib.framework.AbstractActor;
 import sk.tuke.kpi.gamelib.framework.actions.Loop;
 import sk.tuke.kpi.gamelib.graphics.Animation;
 import sk.tuke.kpi.oop.game.Movable;
+import sk.tuke.kpi.oop.game.behaviours.Behaviour;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,10 +18,20 @@ import java.util.Objects;
 public class Alien extends AbstractActor implements Movable, Enemy, Alive
 {
     private Health HEALTH;
+    private Behaviour<? super Alien> behaviour;
 
-    public Alien() {
+
+    public Alien()
+    {
         setAnimation(new Animation("sprites/alien.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG));
         this.HEALTH = new Health(100);
+    }
+
+    public Alien(int HEALTH, Behaviour<? super Alien> behaviour)
+    {
+        setAnimation(new Animation("sprites/alien.png", 32, 32, 0.1f, Animation.PlayMode.LOOP_PINGPONG));
+        this.HEALTH = new Health(HEALTH);
+        this.behaviour = behaviour;
     }
 
     @Override
@@ -37,6 +48,7 @@ public class Alien extends AbstractActor implements Movable, Enemy, Alive
     public void addedToScene(@NotNull Scene scene)
     {
         super.addedToScene(scene);
+        if (this.behaviour != null) this.behaviour.setUp(this);
 
         new Loop<>(
             new Invoke<>(() -> killAlien(getHealth().getValue()))
