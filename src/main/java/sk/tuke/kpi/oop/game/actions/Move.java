@@ -4,6 +4,8 @@ import org.jetbrains.annotations.Nullable;
 import sk.tuke.kpi.gamelib.actions.Action;
 import sk.tuke.kpi.oop.game.Direction;
 import sk.tuke.kpi.oop.game.Movable;
+import sk.tuke.kpi.oop.game.items.Ammo;
+import sk.tuke.kpi.oop.game.weapons.Bullet;
 
 import java.util.Objects;
 
@@ -17,7 +19,6 @@ public class Move<A extends Movable> implements Action<Movable>
 
 
     public Move(Direction direction, float duration) {
-        // implementacia konstruktora akcie
         this.duration = duration;
         this.direction = direction;
         this.amount = 0;
@@ -56,11 +57,8 @@ public class Move<A extends Movable> implements Action<Movable>
         actor.setPosition(actor.getPosX()+(direction.getDx()*actor.getSpeed()), actor.getPosY()+(direction.getDy()*actor.getSpeed()));
 
         if (actor.getScene().getMap().intersectsWithWall(actor)) {
-            int newX = actor.getPosX() - direction.getDx() * actor.getSpeed();
-            int newY = actor.getPosY() - direction.getDy() * actor.getSpeed();
-            actor.setPosition(newX, newY);
-//            actor.setPosition(actor.getPosX(), actor.getPosY());
-//            this.stop();
+            if (actor instanceof Bullet) actor.collidedWithWall();
+            else actor.setPosition(actor.getPosX()-direction.getDx()*actor.getSpeed(), actor.getPosY() - direction.getDy() * actor.getSpeed());
         } if (this.duration <= 1e-5) this.stop();
     }
 

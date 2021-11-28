@@ -6,9 +6,11 @@ import sk.tuke.kpi.gamelib.*;
 import sk.tuke.kpi.oop.game.Locker;
 import sk.tuke.kpi.oop.game.Ventilator;
 import sk.tuke.kpi.oop.game.characters.Alien;
+import sk.tuke.kpi.oop.game.characters.AlienMother;
 import sk.tuke.kpi.oop.game.characters.Ripley;
 import sk.tuke.kpi.oop.game.controllers.KeeperController;
 import sk.tuke.kpi.oop.game.controllers.MovableController;
+import sk.tuke.kpi.oop.game.controllers.ShooterController;
 import sk.tuke.kpi.oop.game.items.*;
 import sk.tuke.kpi.oop.game.openables.Door;
 import sk.tuke.kpi.oop.game.openables.LockedDoor;
@@ -42,6 +44,8 @@ public class EscapeRoom implements SceneListener
                     return new Ammo();
                 case "alien":
                     return new Alien();
+                case "alien mother":
+                    return new AlienMother();
                 default:
                     return null;
             }
@@ -57,23 +61,20 @@ public class EscapeRoom implements SceneListener
         assert this.ACTOR != null;
         scene.follow(this.ACTOR);
 
-//        Disposable controllerMove = new MovableController(this.ACTOR);
-//        Disposable controllerKeeper = new KeeperController(this.ACTOR);
+
+        this.ACTOR.getBackpack().add(new Hammer());
+        this.ACTOR.getBackpack().add(new AccessCard());
+        scene.getGame().pushActorContainer(this.ACTOR.getBackpack());
+
 
         Disposable controllerMove = scene.getInput().registerListener(new MovableController(this.ACTOR));
         Disposable controllerKeeper = scene.getInput().registerListener(new KeeperController(this.ACTOR));
+        Disposable controllerShooter = scene.getInput().registerListener(new ShooterController(this.ACTOR));
 
-//        FireExtinguisher fireExtinguisher= new FireExtinguisher();
-//        this.ACTOR.getBackpack().add(fireExtinguisher);
-        this.ACTOR.getBackpack().add(new Hammer());
-        scene.getGame().pushActorContainer(this.ACTOR.getBackpack());
-
-        AccessCard accessCard = new AccessCard();
-        this.ACTOR.getBackpack().add(accessCard);
-
-        scene.getMessageBus().subscribe(Door.DOOR_OPENED, (Ripley) -> ACTOR.reduce_energy());
+//        scene.getMessageBus().subscribe(Door.DOOR_OPENED, (Ripley) -> ACTOR.reduce_energy());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerMove.dispose());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerKeeper.dispose());
+        scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerShooter.dispose());
         scene.getMessageBus().subscribe(Ventilator.VENTILATOR_REPAIRED, (Ripley) -> ACTOR.getReduceEnergy().dispose());
     }
 

@@ -55,4 +55,18 @@ public enum Direction
         }
         return NONE;
     }
+
+    public static Direction fromAngle(float angle)
+    {
+        switch ((int)angle) {
+            case 0: return NORTH;
+            case 45: return NORTHWEST;
+            case 90: return WEST;
+            case 135: return SOUTHWEST;
+            case 180: return SOUTH;
+            case 225: return SOUTHEAST;
+            case 270: return EAST;
+            default: return NORTHEAST;
+        }
+    }
 }
