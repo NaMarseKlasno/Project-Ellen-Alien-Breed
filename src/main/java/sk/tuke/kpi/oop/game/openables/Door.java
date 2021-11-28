@@ -20,7 +20,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
     private Animation vdoor;
     private Animation hdoor;
 
-    private Orientation DOOR;
+    private Orientation doorOrientation;
 
     public enum Orientation {
         HORIZONTAL,
@@ -31,7 +31,7 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
     public Door(String name,Orientation orientation)
     {
         super(name);
-        this.DOOR = orientation;
+        this.doorOrientation = orientation;
 
         this.vdoor = new Animation("sprites/vdoor.png", 16, 32, 0.1f, Animation.PlayMode.ONCE);
         this.hdoor = new Animation("sprites/hdoor.png", 32, 16, 0.1f, Animation.PlayMode.ONCE);
@@ -59,18 +59,24 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
 
         this.STATUS = true;
 
-        MapTile title = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16);
-        title.setType(MapTile.Type.CLEAR);
+        if (this.doorOrientation == Orientation.VERTICAL) {
+            MapTile title = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16);
+            title.setType(MapTile.Type.CLEAR);
+            MapTile title2 = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16 + 1);
+            title2.setType(MapTile.Type.CLEAR);
+        } else if (this.doorOrientation == Orientation.HORIZONTAL) {
+            MapTile title = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16);
+            title.setType(MapTile.Type.CLEAR);
+            MapTile title2 = getScene().getMap().getTile(this.getPosX() / 16+1, this.getPosY() / 16);
+            title2.setType(MapTile.Type.CLEAR);
+        }
 
-        MapTile title2 = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16+1);
-        title2.setType(MapTile.Type.CLEAR);
-
-        if (this.DOOR == Orientation.HORIZONTAL) this.hdoor.play();
-        if (this.DOOR == Orientation.VERTICAL) this.vdoor.play();
+        if (this.doorOrientation == Orientation.HORIZONTAL) this.hdoor.play();
+        if (this.doorOrientation == Orientation.VERTICAL) this.vdoor.play();
         //this.DOOR.play();
         this.getScene().getMessageBus().publish(DOOR_OPENED, this);
-        if (this.DOOR == Orientation.HORIZONTAL) this.hdoor.stop();
-        if (this.DOOR == Orientation.VERTICAL) this.vdoor.stop();
+        if (this.doorOrientation == Orientation.HORIZONTAL) this.hdoor.stop();
+        if (this.doorOrientation == Orientation.VERTICAL) this.vdoor.stop();
 //        this.DOOR.stop();
     }
 
@@ -81,11 +87,17 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
 
         this.STATUS = false;
 
-        MapTile title = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16);
-        title.setType(MapTile.Type.WALL);
-
-        MapTile title2 = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16+1);
-        title2.setType(MapTile.Type.WALL);
+        if (this.doorOrientation == Orientation.VERTICAL) {
+            MapTile title = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16);
+            title.setType(MapTile.Type.WALL);
+            MapTile title2 = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16 + 1);
+            title2.setType(MapTile.Type.WALL);
+        } else if (this.doorOrientation == Orientation.HORIZONTAL) {
+            MapTile title = getScene().getMap().getTile(this.getPosX() / 16, this.getPosY() / 16);
+            title.setType(MapTile.Type.WALL);
+            MapTile title2 = getScene().getMap().getTile(this.getPosX() / 16+1, this.getPosY() / 16);
+            title2.setType(MapTile.Type.WALL);
+        }
 
         this.getScene().getMessageBus().publish(DOOR_CLOSED, this);
     }
