@@ -6,8 +6,8 @@ public class LockedDoor extends Door
 {
     private boolean STATUS;
 
-    public LockedDoor() {
-        super();
+    public LockedDoor(String name,Orientation orientation) {
+        super(name, orientation);
         this.STATUS = true;
     }
 

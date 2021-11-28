@@ -12,18 +12,36 @@ import sk.tuke.kpi.oop.game.items.Usable;
 
 public class Door extends AbstractActor implements Openable, Usable<Actor>
 {
-    private Animation DOOR;
     private boolean STATUS;
 
     public static final Topic<Door> DOOR_CLOSED = Topic.create("door closed", Door.class);
     public static final Topic<Door> DOOR_OPENED = Topic.create("door opened", Door.class);
 
+    private Animation vdoor;
+    private Animation hdoor;
 
-    public Door() {
-        this.DOOR = new Animation("sprites/vdoor.png", 16, 32, 0.1f, Animation.PlayMode.ONCE);
-        setAnimation(this.DOOR);
+    private Orientation DOOR;
 
-        this.DOOR.stop();
+    public enum Orientation {
+        HORIZONTAL,
+        VERTICAL
+    }
+
+
+    public Door(String name,Orientation orientation)
+    {
+        super(name);
+        this.DOOR = orientation;
+
+        this.vdoor = new Animation("sprites/vdoor.png", 16, 32, 0.1f, Animation.PlayMode.ONCE);
+        this.hdoor = new Animation("sprites/hdoor.png", 32, 16, 0.1f, Animation.PlayMode.ONCE);
+
+        if (orientation == Orientation.HORIZONTAL) setAnimation(hdoor);
+        else if (orientation == Orientation.VERTICAL) setAnimation(vdoor);
+
+        this.hdoor.pause();
+        this.vdoor.pause();
+//        this.DOOR.stop();
         this.STATUS = false;
     }
 
@@ -47,8 +65,12 @@ public class Door extends AbstractActor implements Openable, Usable<Actor>
         MapTile title2 = getScene().getMap().getTile(this.getPosX()/16, this.getPosY()/16+1);
         title2.setType(MapTile.Type.CLEAR);
 
-        this.DOOR.play();
+        if (this.DOOR == Orientation.HORIZONTAL) this.hdoor.play();
+        if (this.DOOR == Orientation.VERTICAL) this.vdoor.play();
+        //this.DOOR.play();
         this.getScene().getMessageBus().publish(DOOR_OPENED, this);
+        if (this.DOOR == Orientation.HORIZONTAL) this.hdoor.stop();
+        if (this.DOOR == Orientation.VERTICAL) this.vdoor.stop();
 //        this.DOOR.stop();
     }
 

@@ -32,8 +32,14 @@ public class EscapeRoom implements SceneListener
                     return new Ripley();
                 case "energy":
                     return new Energy();
-                case "door":
-                    return new LockedDoor();
+                case "front door":
+                    return new Door("front door",Door.Orientation.VERTICAL);
+                case "exit door":
+                    return new Door("exit door",Door.Orientation.VERTICAL);
+                case "back door":
+                    return new Door("back door",Door.Orientation.HORIZONTAL);
+//                case "door":
+//                    return new LockedDoor();
                 case "access card":
                     return new AccessCard();
                 case "locker":
