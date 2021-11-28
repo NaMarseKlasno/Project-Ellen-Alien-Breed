@@ -18,7 +18,7 @@ public class Bullet extends AbstractActor implements Fireable
 
     public Bullet() {
         setAnimation(new Animation("sprites/bullet.png", 16, 16));
-        this.SPEED = 0;
+        this.SPEED = 4;
     }
 
     @Override

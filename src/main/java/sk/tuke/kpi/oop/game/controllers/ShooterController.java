@@ -8,7 +8,7 @@ import sk.tuke.kpi.oop.game.characters.Armed;
 
 public class ShooterController implements KeyboardListener {
 
-    private Fire<Armed> BULLET;
+//    private Fire<Armed> BULLET;
     private Armed ARMED;
 
 
@@ -20,13 +20,11 @@ public class ShooterController implements KeyboardListener {
     @Override
     public void keyPressed(@NotNull Input.Key key)
     {
-        switch (key) {
-            case SPACE:
-                this.BULLET = new Fire<>();
-                this.BULLET.scheduleFor(ARMED);
-                break;
-            default:
-                break;
+        Fire<Armed> BULLET;
+
+        if (key == Input.Key.SPACE) {
+            BULLET = new Fire<>();
+            BULLET.scheduleFor(ARMED);
         }
     }
 }

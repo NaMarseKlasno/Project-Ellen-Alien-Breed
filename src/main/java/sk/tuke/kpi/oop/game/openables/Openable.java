@@ -1,4 +1,4 @@
-package sk.tuke.kpi.oop.game;
+package sk.tuke.kpi.oop.game.openables;
 
 import sk.tuke.kpi.gamelib.Actor;
 

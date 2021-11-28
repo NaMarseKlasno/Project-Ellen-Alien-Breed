@@ -63,7 +63,7 @@ public class MissionImpossible implements SceneListener
         AccessCard accessCard = new AccessCard();
         this.ACTOR.getBackpack().add(accessCard);
 
-        scene.getMessageBus().subscribe(Door.DOOR_OPENED, (Ripley) -> ACTOR.reduce_energy());
+        scene.getMessageBus().subscribe(Door.DOOR_OPENED, (Ripley) -> ACTOR.reduceEnergy());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerMove.dispose());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> controllerKeeper.dispose());
         scene.getMessageBus().subscribe(Ripley.RIPLEY_DIED, (Ripley) -> ACTOR.getReduceEnergy().dispose());
