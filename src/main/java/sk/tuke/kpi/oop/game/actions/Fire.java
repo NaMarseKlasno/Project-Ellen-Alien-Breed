@@ -24,6 +24,6 @@ public class Fire <A extends Armed> extends AbstractAction<A>
         Objects.requireNonNull(getActor().getScene()).addActor(FIRE,(getActor().getPosX()+8)+Direction.fromAngle(getActor().getAnimation().getRotation()).getDx()*24,(getActor().getPosY()+8)+Direction.fromAngle(getActor().getAnimation().getRotation()).getDy()*24);
         FIRE.startedMoving(Direction.fromAngle(getActor().getAnimation().getRotation()));
         new Move<Fireable>(Direction.fromAngle(getActor().getAnimation().getRotation()),Float.MAX_VALUE).scheduleFor(FIRE);
-        System.out.println(Direction);
+//        System.out.println(Direction);
     }
 }
