@@ -14,7 +14,8 @@ import sk.tuke.kpi.oop.game.controllers.MovableController;
 import sk.tuke.kpi.oop.game.controllers.ShooterController;
 import sk.tuke.kpi.oop.game.items.*;
 import sk.tuke.kpi.oop.game.openables.Door;
-import sk.tuke.kpi.oop.game.openables.LockedDoor;
+//import sk.tuke.kpi.oop.game.openables.LockedDoor;
+import sk.tuke.kpi.oop.game.behaviours.Observing;
 
 import java.util.Objects;
 
@@ -53,6 +54,7 @@ public class EscapeRoom implements SceneListener
                     return new Ammo();
                 case "alien":
                     if (Objects.equals(type, "running")) return new Alien(50, new RandomlyMoving());
+                    if (Objects.equals(type, "waiting1") || Objects.equals(type, "waiting2")) return new Alien(50, new Observing<>( Door.DOOR_OPENED, door -> door.getName().equals("front door")  || door.getName().equals("back door"), new RandomlyMoving()));
                     return new Alien();
                 case "alien mother":
                     return new AlienMother();

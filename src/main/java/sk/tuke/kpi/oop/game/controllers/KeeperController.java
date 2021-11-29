@@ -26,10 +26,10 @@ public class KeeperController implements KeyboardListener {
         switch (key)
         {
             case ENTER:
-                new Take<>(KEEPER).scheduleFor(KEEPER);
+                new Take<>().scheduleFor(KEEPER);
                 break;
             case BACKSPACE:
-                new Drop<>(KEEPER).scheduleFor(KEEPER);
+                new Drop<>().scheduleFor(KEEPER);
                 break;
             case S:
                 new Shift<>().scheduleFor(KEEPER);
