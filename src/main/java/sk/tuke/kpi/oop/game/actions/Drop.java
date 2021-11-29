@@ -13,7 +13,10 @@ public class Drop <A extends Keeper> extends AbstractAction<A>
     @Override
     public void execute(float deltaTime)
     {
-        if (this.getActor() == null || isDone()) return;
+        if (this.getActor() == null || isDone()) {
+            setDone(true);
+            return;
+        }
 
         @Nullable Collectible ITEM = Objects.requireNonNull(this.getActor()).getBackpack().peek();
         if (ITEM == null) return;
