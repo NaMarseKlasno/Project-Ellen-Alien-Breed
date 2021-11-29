@@ -1,7 +1,6 @@
 package sk.tuke.kpi.oop.game.actions;
 
 import org.jetbrains.annotations.Nullable;
-import sk.tuke.kpi.gamelib.Scene;
 import sk.tuke.kpi.gamelib.framework.actions.AbstractAction;
 import sk.tuke.kpi.oop.game.Keeper;
 import sk.tuke.kpi.oop.game.items.Collectible;
@@ -14,6 +13,8 @@ public class Drop <A extends Keeper> extends AbstractAction<A>
     @Override
     public void execute(float deltaTime)
     {
+        if (this.getActor() == null || isDone()) return;
+
         @Nullable Collectible ITEM = Objects.requireNonNull(this.getActor()).getBackpack().peek();
         if (ITEM == null) return;
 

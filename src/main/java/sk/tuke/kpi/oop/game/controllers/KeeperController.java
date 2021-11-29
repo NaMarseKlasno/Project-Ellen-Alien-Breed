@@ -38,9 +38,11 @@ public class KeeperController implements KeyboardListener {
                 Usable<?> USE = Objects.requireNonNull(this.KEEPER.getScene()).getActors().stream().filter(this.KEEPER::intersects).filter(Usable.class::isInstance).map(Usable.class::cast).findFirst().orElse(null);
                 if (USE == null) return;
                 new Use<>(USE).scheduleForIntersectingWith(this.KEEPER);
+                break;
             case B:
                 if (Usable.class.isInstance(this.KEEPER.getBackpack().peek()))
                     new Use<>((Usable<?>)this.KEEPER.getBackpack().peek()).scheduleForIntersectingWith(this.KEEPER);
+                break;
             default:
                 break;
         }

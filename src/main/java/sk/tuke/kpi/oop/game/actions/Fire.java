@@ -9,27 +9,21 @@ import java.util.Objects;
 
 public class Fire <A extends Armed> extends AbstractAction<A>
 {
-
     @Override
-    public void execute(float deltaTime) {
-        if ( getActor() == null) {
+    public void execute(float deltaTime)
+    {
+        if (getActor() == null || isDone()) {
             setDone(true);
             return;
-        }
+        } setDone(true);
 
-        if (isDone()) {
-            return;
-        }
+        Fireable FIRE = getActor().getFirearm().fire();
+        if (FIRE == null) return;
 
-        Fireable fireable = getActor().getFirearm().fire();
-        int pomX = Direction.fromAngle(getActor().getAnimation().getRotation()).getDx();
-        int pomY = Direction.fromAngle(getActor().getAnimation().getRotation()).getDy();
 
-        if (fireable!=null) {
-            Objects.requireNonNull(getActor().getScene()).addActor(fireable, getActor().getPosX() + 8 + pomX*24, getActor().getPosY() + 8 + pomY*24);
-            fireable.startedMoving(Direction.fromAngle(getActor().getAnimation().getRotation()));
-            new Move<Fireable>(Direction.fromAngle(getActor().getAnimation().getRotation()),Float.MAX_VALUE).scheduleFor(fireable);
-        }
-        setDone(true);
+        Objects.requireNonNull(getActor().getScene()).addActor(FIRE,(getActor().getPosX()+8)+Direction.fromAngle(getActor().getAnimation().getRotation()).getDx()*24,(getActor().getPosY()+8)+Direction.fromAngle(getActor().getAnimation().getRotation()).getDy()*24);
+        FIRE.startedMoving(Direction.fromAngle(getActor().getAnimation().getRotation()));
+        new Move<Fireable>(Direction.fromAngle(getActor().getAnimation().getRotation()),Float.MAX_VALUE).scheduleFor(FIRE);
+        System.out.println(Direction);
     }
 }

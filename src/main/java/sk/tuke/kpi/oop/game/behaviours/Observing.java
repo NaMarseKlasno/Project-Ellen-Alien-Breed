@@ -20,10 +20,12 @@ public class Observing<A extends Actor, T> implements Behaviour<A>
     }
 
     @Override
-    public void setUp(A actor)
+    public void setUp(A ACTOR)
     {
-        Objects.requireNonNull(actor.getScene()).getMessageBus().subscribe(topic, t -> {
-            if (predicate.test(t)) delegate.setUp(actor);
+        if (ACTOR == null) return;
+
+        Objects.requireNonNull(ACTOR.getScene()).getMessageBus().subscribe(topic, t -> {
+            if (predicate.test(t)) delegate.setUp(ACTOR);
         });
     }
 }
